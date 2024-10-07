@@ -1,0 +1,20 @@
+﻿@model Comment
+
+<div class="container mt-5">
+    <h2 class="text-center text-dark">Comment Details</h2>
+    <dl class="row">
+        <dt class="col-sm-3 text-dark">Comment ID</dt>
+        <dd class="col-sm-9 text-dark">@Model.CommentId</dd>
+
+        <dt class="col-sm-3 text-dark">Content</dt>
+        <dd class="col-sm-9 text-dark">@Model.Content</dd>
+
+        <dt class="col-sm-3 text-dark">Category</dt>
+        <dd class="col-sm-9 text-dark">@Model.Category</dd>
+    </dl>
+    <div class="d-flex justify-content-between mt-4">
+        <form asp-action="Delete" asp-route-id="@Model.CommentId" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</div>
