@@ -1,3 +1,6 @@
+using FalkenbergsRevyn.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace FalkenbergsRevyn
 {
     public class Program
@@ -8,6 +11,10 @@ namespace FalkenbergsRevyn
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Configure the database context
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 
             var app = builder.Build();
 
