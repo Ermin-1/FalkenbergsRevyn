@@ -50,18 +50,26 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         //Post : Post/AddOrEdit
-        [HttpGet]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEdit([Bind("PostId, Title, Content, DateCreated, Comments")]Post post)
         {
             if (ModelState.IsValid)
             {
-                if(post.PostId == 0)
+
+                if (ModelState["Comments"].Errors.Count > 0)
                 {
+                    ModelState["Comments"].Errors.Clear();
+                }
+
+                if (post.PostId == 0)
+                {
+                    post.DateCreated = DateTime.Now;
                     _context.Add(post);
                 }
                 else
                 {
+                    post.DateCreated = DateTime.Now;
                     _context.Update(post);
                 }
                 await _context.SaveChangesAsync();
