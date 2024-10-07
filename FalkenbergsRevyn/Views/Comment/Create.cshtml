@@ -1,0 +1,20 @@
+﻿@model Comment
+
+<div class="container mt-5">
+    <h2 class="text-center text-light">Create New Comment</h2>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label class="text-light">Content</label>
+            <textarea class="form-control bg-dark text-light" asp-for="Content" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="text-light">Category</label>
+            <select class="form-control bg-dark text-light" asp-for="Category">
+                <option>Kritik</option>
+                <option>Frågor</option>
+                <option>Positiva kommentarer</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    </form>
+</div>
