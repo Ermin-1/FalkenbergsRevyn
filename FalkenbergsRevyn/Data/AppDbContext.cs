@@ -1,7 +1,6 @@
 ﻿using FalkenbergsRevyn.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
+using System;
 
 namespace FalkenbergsRevyn.Data
 {
@@ -66,15 +65,26 @@ namespace FalkenbergsRevyn.Data
                 new Comment { CommentId = 19, Content = "Ser fram emot att se dem live på scenen!", Category = "Positiva", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-15), PostId = 4 },
                 new Comment { CommentId = 20, Content = "Är ni säkra på att alla kostymer är redo för premiären?", Category = "Kritik", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-15), PostId = 4 },
 
-               
-                // Exempel för Post 5
+                // Comments for Post 5
                 new Comment { CommentId = 21, Content = "Skådespelarna var lysande! Stort tack!", Category = "Positiva", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-14), PostId = 5 },
                 new Comment { CommentId = 22, Content = "Några av scenerna kändes lite utdragna.", Category = "Kritik", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-14), PostId = 5 },
                 new Comment { CommentId = 23, Content = "Älskade den nya skådespelaren, grym energi!", Category = "Positiva", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-13), PostId = 5 },
                 new Comment { CommentId = 24, Content = "Hoppas att ni förkortar vissa scener till nästa år.", Category = "Kritik", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-13), PostId = 5 },
                 new Comment { CommentId = 25, Content = "Perfekt dynamik mellan skådespelarna, fantastisk kemi!", Category = "Positiva", IsAnswered = false, DatePosted = DateTime.Now.AddDays(-12), PostId = 5 }
             );
-        }
 
+            // Seed data for Responses
+            modelBuilder.Entity<Response>().HasData(
+                new Response { ResponseId = 1, ResponseContent = "Tack för din feedback! Vi ser över skämten inför nästa show.", DateResponded = DateTime.Now.AddDays(-27), CommentId = 3 },
+                new Response { ResponseId = 2, ResponseContent = "Tack för att du påpekade det! Vi kommer att justera belysningen.", DateResponded = DateTime.Now.AddDays(-27), CommentId = 4 },
+                new Response { ResponseId = 3, ResponseContent = "Vi är glada att du gillade showen! Tack för ditt fina omdöme!", DateResponded = DateTime.Now.AddDays(-26), CommentId = 5 },
+                new Response { ResponseId = 4, ResponseContent = "Nästa år satsar vi på ännu bättre ljud!", DateResponded = DateTime.Now.AddDays(-23), CommentId = 9 },
+                new Response { ResponseId = 5, ResponseContent = "Vi ser fram emot att se dig nästa år! Biljetterna släpps snart.", DateResponded = DateTime.Now.AddDays(-22), CommentId = 10 },
+                new Response { ResponseId = 6, ResponseContent = "Kul att du trivdes på mingelkvällen! Tack för din feedback.", DateResponded = DateTime.Now.AddDays(-18), CommentId = 11 },
+                new Response { ResponseId = 7, ResponseContent = "Vi ser fram emot att du ser kostymerna live på scenen!", DateResponded = DateTime.Now.AddDays(-15), CommentId = 19 },
+                new Response { ResponseId = 8, ResponseContent = "Vi håller koll på tidsramarna och ser över de utdragna scenerna.", DateResponded = DateTime.Now.AddDays(-12), CommentId = 22 },
+                new Response { ResponseId = 9, ResponseContent = "Tack för dina fina ord om våra skådespelare! Vi uppskattar det.", DateResponded = DateTime.Now.AddDays(-12), CommentId = 23 }
+            );
+        }
     }
 }
