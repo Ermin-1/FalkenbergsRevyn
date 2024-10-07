@@ -12,16 +12,21 @@ namespace FalkenbergsRevyn.Controllers
         {
             _context = context;
         }
+
         public async Task<IActionResult> Index()
         {
             var comments = await _context.Comments.ToListAsync();
             return View(comments);
         }
+
+
         public async Task<IActionResult> Detilas(int? id)
+
         {
             if (id == null)
             {
                 return NotFound();
+
             }
             var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
             if (comment == null)
@@ -31,16 +36,29 @@ namespace FalkenbergsRevyn.Controllers
             return View(comment);
         }
 
+        // In case we need to add more comments
+
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> Create([Bind("Content, Category")] Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                comment.DatePosted = DateTime.Now;
+                comment.IsAnswered = false;
+                comment.IsArchived = false;
+                comment.PostId = 1; // Need to think how to connect this to a post
+
         public async Task<IActionResult> Create([Bind("CommentId,CommentContent, Category")] Comment comment)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -67,8 +85,12 @@ namespace FalkenbergsRevyn.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
+
+            if (comment != null)
+            {
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
     }
