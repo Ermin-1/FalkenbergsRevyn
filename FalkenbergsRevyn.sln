@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FalkenbergsRevyn", "FalkenbergsRevyn\FalkenbergsRevyn.csproj", "{D55BB67B-CDF2-45B1-8782-93507885E62A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D55BB67B-CDF2-45B1-8782-93507885E62A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D55BB67B-CDF2-45B1-8782-93507885E62A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D55BB67B-CDF2-45B1-8782-93507885E62A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D55BB67B-CDF2-45B1-8782-93507885E62A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B09651F5-6A6A-42BB-AA4A-CC5FF47008EA}
+	EndGlobalSection
+EndGlobal
