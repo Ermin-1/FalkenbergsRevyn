@@ -54,44 +54,46 @@ namespace FalkenbergsRevyn.Controllers
                 comment.IsArchived = false;
                 comment.PostId = 1; // Need to think how to connect this to a post
 
-        public async Task<IActionResult> Create([Bind("CommentId,CommentContent, Category")] Comment comment)
-        {
-            if (ModelState.IsValid)
-            {
-
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            return View(comment);
         }
+                public async Task<IActionResult> Create([Bind("CommentId,CommentContent, Category")] Comment comment)
+                {
+                    if (ModelState.IsValid)
+                    {
 
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-            return View(comment);
-        }
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var comment = await _context.Comments.FindAsync(id);
+                        _context.Add(comment);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    return View(comment);
+                }
 
-            if (comment != null)
-            {
-                _context.Comments.Remove(comment);
-                await _context.SaveChangesAsync();
-            }
-            return RedirectToAction(nameof(Index));
-        }
+                [HttpDelete]
+                public async Task<IActionResult> Delete(int? id)
+                {
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
+                    var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
+                    if (comment == null)
+                    {
+                        return NotFound();
+                    }
+                    return View(comment);
+                }
+                [HttpPost, ActionName("Delete")]
+                [ValidateAntiForgeryToken]
+                public async Task<IActionResult> DeleteConfirmed(int id)
+                {
+                    var comment = await _context.Comments.FindAsync(id);
+
+                    if (comment != null)
+                    {
+                        _context.Comments.Remove(comment);
+                        await _context.SaveChangesAsync();
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
     }
 }
