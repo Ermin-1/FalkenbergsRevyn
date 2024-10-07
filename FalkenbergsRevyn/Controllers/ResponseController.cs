@@ -2,23 +2,46 @@
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace FalkenbergsRevyn.Controllers
 {
     public class ResponseController : Controller
     {
         private readonly AppDbContext _context;
-        public ResponseController(AppDbContext context)
+        private readonly ILogger<ResponseController> _logger;
+
+        public ResponseController(AppDbContext context, ILogger<ResponseController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         //GET: Response
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter)
         {
-            var responses = await _context.Responses.Include(r => r.CommentId).ToListAsync();
+            var responsesQuery = _context.Responses.Include(r => r.Comment).AsQueryable();
+
+            // Filtrering på obesvarade kommentarer
+            if (filter == "unanswered")
+            {
+                responsesQuery = responsesQuery.Where(r => !r.Comment.IsAnswered);
+            }
+
+            // Sortering på senaste kommentarer (baserat på datum för responsen)
+            if (filter == "latest")
+            {
+                responsesQuery = responsesQuery.OrderByDescending(r => r.Comment.DatePosted);
+            }
+
+            // Returnera en lista (IEnumerable) med Responses
+            var responses = await responsesQuery.ToListAsync();
             return View(responses);
         }
+
+
+
 
         //GET: Response/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -28,7 +51,10 @@ namespace FalkenbergsRevyn.Controllers
                 return NotFound();
             }
 
-            var response = await _context.Responses.Include(r => r.CommentId).FirstOrDefaultAsync(m => m.ResponseId == id);
+            // Inkluderar relaterad Comment-entitet
+            var response = await _context.Responses
+                                         .Include(r => r.Comment) // Inkludera den relaterade Comment-entiteten
+                                         .FirstOrDefaultAsync(m => m.ResponseId == id);
             if (response == null)
             {
                 return NotFound();
@@ -57,7 +83,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(response);
         }
 
-        //GET: Response/Edit/5
+        // GET: Response/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -71,9 +97,10 @@ namespace FalkenbergsRevyn.Controllers
                 return NotFound();
             }
 
-            return View(response);
-
+            // Returnerar vyn för att redigera en enskild Response
+            return View(response); // Detta laddar Edit.cshtml som förväntar sig en enskild Response-modell
         }
+
 
         // POST: Responses/Edit/5
         [HttpPost]
@@ -85,38 +112,56 @@ namespace FalkenbergsRevyn.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                // Logga detaljer om vad som saknas eller är ogiltigt i ModelState
+                foreach (var key in ModelState.Keys)
                 {
-                    _context.Update(response);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Responses.Any(r=>r.ResponseId == response.ResponseId))
+                    var state = ModelState[key];
+                    foreach (var error in state.Errors)
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        _logger.LogError($"ModelState error for key '{key}': {error.ErrorMessage}");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
+                // Återvänd till vyn så användaren kan se felet
+                return View(response);
             }
-            return View(response);
+
+            try
+            {
+                _context.Update(response);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Responses.Any(r => r.ResponseId == response.ResponseId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
+
+
         //GET: Response/Delete/5
-        public async Task<IActionResult> Delete (int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var response = await _context.Responses.Include(r=> r.CommentId).FirstOrDefaultAsync(m=> m.ResponseId == id);
+            // Inkluderar relaterad Comment-entitet
+            var response = await _context.Responses
+                                         .Include(r => r.Comment) // Inkludera den relaterade Comment-entiteten
+                                         .FirstOrDefaultAsync(m => m.ResponseId == id);
             if (response == null)
             {
                 return NotFound();
@@ -133,7 +178,6 @@ namespace FalkenbergsRevyn.Controllers
             _context.Responses.Remove(response);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-
         }
     }
 }
