@@ -10,22 +10,22 @@
 }
 else
 {
-    
 
-<div class="container">
-    <div class="header">
-        <img src="/images/logo.png" alt="Logo" class="logo" />
-        <div class="navigation">
-            <button class="btn">Positiva kommentarer</button>
-            <button class="btn">Logga ut</button>
+
+    <div class="container">
+        <div class="header">
+            <img src="/images/logo.png" alt="Logo" class="logo" />
+            <div class="navigation">
+                <button class="btn">Positiva kommentarer</button>
+                <button class="btn">Logga ut</button>
+            </div>
         </div>
-    </div>
 
-    <div class="feedback-section">
-       @*  Positive *@
-        <div class="feedback-category">
-            <div class="d-flex justify-content-between">
-            <button class="category-btn">Positiva</button>
+        <div class="feedback-section">
+            @*  Positive *@
+            <div class="feedback-category">
+                <div class="d-flex justify-content-between">
+                    <button class="category-btn">Positiva</button>
                     <div class="dropdown mb-3">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Filtrera kommentarer
@@ -37,9 +37,9 @@ else
                         </ul>
                     </div>
                 </div>
-            <div class="feedback-list">
-                @foreach (var comment in Model.PositiveComments)
-                {
+                <div class="feedback-list">
+                    @foreach (var comment in Model.PositiveComments)
+                    {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
                             <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
@@ -52,11 +52,11 @@ else
                                 <button type="submit" class="btn small">Ta bort från listan</button>
                             </form>
                         </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
             @*  Kritik! *@
-        <div class="feedback-category">
+            <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <button class="category-btn">Kritik</button>
                     <div class="dropdown mb-3">
@@ -70,9 +70,9 @@ else
                         </ul>
                     </div>
                 </div>
-            <div class="feedback-list">
-                @foreach (var comment in Model.CriticalComments)
-                {
+                <div class="feedback-list">
+                    @foreach (var comment in Model.CriticalComments)
+                    {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
                             <button class="btn small" data-bs-toggle="modal" data-bs-target="#deleteModal" type="button"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
@@ -86,11 +86,11 @@ else
                                 <button type="submit" class="btn small"><i class="fa-regular fa-trash-can"></i></button>
                             </form>
                         </div>
-                }
+                    }
+                </div>
             </div>
-        </div>
             @*  FRÅGOR! *@
-        <div class="feedback-category">
+            <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <button class="category-btn">Frågor</button>
                     <div class="dropdown mb-3">
@@ -104,9 +104,9 @@ else
                         </ul>
                     </div>
                 </div>
-            <div class="feedback-list">
-                @foreach (var comment in Model.Questions)
-                {
+                <div class="feedback-list">
+                    @foreach (var comment in Model.Questions)
+                    {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
                             <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
@@ -119,11 +119,11 @@ else
                                 <button type="submit" class="btn small">Ta bort</button>
                             </form>
                         </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="modal" id="deleteModal" tabindex="-1">
         <div class="modal-dialog">
@@ -152,7 +152,6 @@ else
     }
 
     .container {
-     
     }
 
     .header {
@@ -190,7 +189,7 @@ else
         border: none;
         padding: 10px 20px;
         margin-bottom: 20px;
-     /*    cursor: pointer; */
+        /*    cursor: pointer; */
         border-radius: 5px;
     }
 
