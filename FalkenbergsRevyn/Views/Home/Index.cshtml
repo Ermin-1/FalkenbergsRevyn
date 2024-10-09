@@ -1,8 +1,61 @@
-﻿@{
+﻿@model FeedbackViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="header">
+        <img src="/images/logo.png" alt="Logo" class="logo" />
+        <div class="navigation">
+            <button class="btn">Positiva kommentarer</button>
+            <button class="btn">Logga ut</button>
+        </div>
+    </div>
+
+    <div class="feedback-section">
+        <div class="feedback-category">
+            <button class="category-btn">Kritik</button>
+            <div class="feedback-list">
+                @* @foreach (var comment in Model.PositiveComments)
+                {
+                    <div class="feedback-item">
+                        <p>@comment.Content</p>
+                        <input type="text" placeholder="Svara här..." />
+                        <button class="btn small">Ta bort</button>
+                        <button class="btn small">Svara</button>
+                    </div>
+                } *@
+            </div>
+        </div>
+        <div class="feedback-category">
+            <button class="category-btn">Kritik</button>
+            <div class="feedback-list">
+               @*  @foreach (var comment in Model.CriticalComments)
+                {
+                    <div class="feedback-item">
+                        <p>@comment.Content</p>
+                        <input type="text" placeholder="Svara här..." />
+                        <button class="btn small">Ta bort</button>
+                        <button class="btn small">Svara</button>
+                    </div>
+                } *@
+            </div>
+        </div>
+
+        <div class="feedback-category">
+            <button class="category-btn">Frågor</button>
+            <div class="feedback-list">
+                @* @foreach (var comment in Model.Questions)
+                {
+                    <div class="feedback-item">
+                        <p>@comment.Content</p>
+                        <input type="text" placeholder="Svara här..." />
+                        <button class="btn small">Ta bort</button>
+                        <button class="btn small">Svara</button>
+                    </div>
+                } *@
+            </div>
+        </div>
+    </div>
 </div>

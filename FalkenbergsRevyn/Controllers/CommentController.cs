@@ -1,5 +1,6 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using FalkenbergsRevyn.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -17,8 +18,13 @@ namespace FalkenbergsRevyn.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var comments = await _context.Comments.ToListAsync();
-            return View(comments);
+            var feedbackViewModel = new FeedbackViewModel
+            {
+                PositiveComments = await _context.Comments.Where(c => c.Category == "Positiva").ToListAsync(),
+                CriticalComments = await _context.Comments.Where(c => c.Category == "Kritik").ToListAsync() ,
+                Questions = await _context.Comments.Where(c => c.Category == "Question").ToListAsync()
+            };
+            return View(feedbackViewModel);
         }
 
         // Detaljerad vy för en specifik kommentar
