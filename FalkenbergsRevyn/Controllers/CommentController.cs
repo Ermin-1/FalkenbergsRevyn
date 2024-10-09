@@ -1,11 +1,15 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace FalkenbergsRevyn.Controllers
 {
+
     public class CommentController : Controller
     {
         private readonly AppDbContext _context;
@@ -15,6 +19,7 @@ namespace FalkenbergsRevyn.Controllers
             _context = context;
         }
 
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var comments = await _context.Comments.ToListAsync();
@@ -22,6 +27,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Detaljerad vy för en specifik kommentar
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)  // Fixade stavfel från "Detilas" till "Details"
         {
             if (id == null)
@@ -39,11 +45,13 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Skapa en ny kommentar
+        //[Authorize (Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Content,Category")] Comment comment)
@@ -53,7 +61,8 @@ namespace FalkenbergsRevyn.Controllers
                 comment.DatePosted = DateTime.Now;
                 comment.IsAnswered = false;
                 comment.IsArchived = false;
-                comment.PostId = 1; // Här kan du implementera hur det kopplas till ett inlägg
+                
+                comment.PostId = 1; // Här kan du implementera hur det kopplas till ett specifikt inlägg
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
@@ -63,7 +72,18 @@ namespace FalkenbergsRevyn.Controllers
             return View(comment);
         }
 
+
+        // Skapa och ta bort åtgärder hanteras av BaseController
+        // Index- och Details-metoder från BaseController laddar respektive vy för alla kommentarer eller enskild kommentar
+
+        public override async Task<IActionResult> Index()
+        {
+            var comments = await _context.Comments.ToListAsync();
+            return View(comments);
+        }
+
         // Ta bort en kommentar (GET)
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -81,6 +101,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Bekräfta och ta bort en kommentar (POST)
+        //[Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -93,6 +114,7 @@ namespace FalkenbergsRevyn.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace FalkenbergsRevyn.Controllers
@@ -49,6 +51,8 @@ namespace FalkenbergsRevyn.Controllers
             }
         }
 
+
+
         //Post : Post/AddOrEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -56,7 +60,6 @@ namespace FalkenbergsRevyn.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 if (ModelState["Comments"].Errors.Count > 0)
                 {
                     ModelState["Comments"].Errors.Clear();
@@ -73,7 +76,8 @@ namespace FalkenbergsRevyn.Controllers
                     _context.Update(post);
                 }
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                return RedirectToAction(nameof(Index));
             }
             return View(post);
         }
@@ -108,6 +112,7 @@ namespace FalkenbergsRevyn.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
 
     }
 }
