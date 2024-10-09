@@ -1,4 +1,4 @@
-﻿@model FeedbackViewModel
+﻿@model IEnumerable<Comment>
 
 <div class="container mt-5">
     <h2 class="text-center text-light">Comments</h2>
@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var comment in Model.PositiveComments)
+            @foreach (var comment in Model)
             {
                 <tr>
                     <td>@comment.Content</td>

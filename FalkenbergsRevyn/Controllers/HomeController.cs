@@ -1,5 +1,8 @@
+using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using FalkenbergsRevyn.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace FalkenbergsRevyn.Controllers
@@ -7,15 +10,23 @@ namespace FalkenbergsRevyn.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var feedbackViewModel = new FeedbackViewModel
+            {
+                PositiveComments = await _context.Comments.Where(c => c.Category == "Positiva").ToListAsync(),
+                CriticalComments = await _context.Comments.Where(c => c.Category == "Kritik").ToListAsync(),
+                Questions = await _context.Comments.Where(c => c.Category == "Question").ToListAsync()
+            };
+            return View(feedbackViewModel);
         }
 
         public IActionResult Privacy()
