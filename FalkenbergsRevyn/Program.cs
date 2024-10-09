@@ -22,8 +22,9 @@ namespace FalkenbergsRevyn
 
             // Configure Identity and add roles
             builder.Services.AddDefaultIdentity<IdentityUser>()
-                .AddRoles<IdentityRole>() // Lägg till roller i Identity
+                .AddRoles<IdentityRole>() // Lï¿½gg till roller i Identity
                 .AddEntityFrameworkStores<AppDbContext>();
+
 
             var app = builder.Build();
 
@@ -40,6 +41,8 @@ namespace FalkenbergsRevyn
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            //Test
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

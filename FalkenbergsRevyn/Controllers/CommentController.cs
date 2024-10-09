@@ -1,12 +1,15 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading.Tasks;
 
 namespace FalkenbergsRevyn.Controllers
 {
+
     public class CommentController : Controller
     {
         private readonly AppDbContext _context;
@@ -58,7 +61,8 @@ namespace FalkenbergsRevyn.Controllers
                 comment.DatePosted = DateTime.Now;
                 comment.IsAnswered = false;
                 comment.IsArchived = false;
-                comment.PostId = 1; // Här kan du implementera hur det kopplas till ett inlägg
+                
+                comment.PostId = 1; // Här kan du implementera hur det kopplas till ett specifikt inlägg
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
@@ -66,6 +70,16 @@ namespace FalkenbergsRevyn.Controllers
             }
 
             return View(comment);
+        }
+
+
+        // Skapa och ta bort åtgärder hanteras av BaseController
+        // Index- och Details-metoder från BaseController laddar respektive vy för alla kommentarer eller enskild kommentar
+
+        public override async Task<IActionResult> Index()
+        {
+            var comments = await _context.Comments.ToListAsync();
+            return View(comments);
         }
 
         // Ta bort en kommentar (GET)
@@ -100,6 +114,7 @@ namespace FalkenbergsRevyn.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+
         }
     }
 }
