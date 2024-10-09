@@ -1,0 +1,16 @@
+﻿@model FalkenbergsRevyn.Models.OpenAIViewModel
+
+@{
+    ViewData["Title"] = "OpenAI API Response";
+}
+
+<h2>OpenAI API Response</h2>
+
+@if (!string.IsNullOrEmpty(Model.Response))
+{
+    <p>@Model.Response</p>
+}
+else
+{
+    <p>No response from OpenAI API.</p>
+}
