@@ -7,6 +7,7 @@
         public DateTime DateResponded { get; set; }
 
         public int CommentId { get; set; }    // Relationen: svar hör till en kommentar public Comment Comment { get; set; }  // Navigeringsegenskap till Comment
+        public Comment? Comment { get; set; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,20 +8,55 @@ using System.Threading.Tasks;
 
 namespace FalkenbergsRevyn.Controllers
 {
-    public class CommentController : BaseController<Comment>
-    {
-        public CommentController(AppDbContext context) : base(context) { }
 
-        // Överlagrad Create-metod för att ställa in specifika standardvärden för en kommentar
+    public class CommentController : Controller
+    {
+        private readonly AppDbContext _context;
+
+        public CommentController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var comments = await _context.Comments.ToListAsync();
+            return View(comments);
+        }
+
+        // Detaljerad vy för en specifik kommentar
+        public async Task<IActionResult> Details(int? id)  // Fixade stavfel från "Detilas" till "Details"
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(comment);
+        }
+
+        // Skapa en ny kommentar
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public override async Task<IActionResult> Create(Comment comment)
+        public async Task<IActionResult> Create([Bind("Content,Category")] Comment comment)
         {
             if (ModelState.IsValid)
             {
                 comment.DatePosted = DateTime.Now;
                 comment.IsAnswered = false;
                 comment.IsArchived = false;
+                
                 comment.PostId = 1; // Här kan du implementera hur det kopplas till ett specifikt inlägg
 
                 _context.Add(comment);
@@ -31,6 +67,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(comment);
         }
 
+
         // Skapa och ta bort åtgärder hanteras av BaseController
         // Index- och Details-metoder från BaseController laddar respektive vy för alla kommentarer eller enskild kommentar
 
@@ -38,6 +75,39 @@ namespace FalkenbergsRevyn.Controllers
         {
             var comments = await _context.Comments.ToListAsync();
             return View(comments);
+        }
+
+        // Ta bort en kommentar (GET)
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(comment);
+        }
+
+        // Bekräfta och ta bort en kommentar (POST)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment != null)
+            {
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }

@@ -6,10 +6,12 @@
 
 <h2>Responses</h2>
 
+
+<!-- Knappar för att filtrera -->
 <div class="btn-group mb-3" role="group">
-    <a href="@Url.Action("FilteredIndex", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
-    <a href="@Url.Action("FilteredIndex", new { filter = "unanswered" })" class="btn btn-secondary">Unanswered Comments</a>
-    <a href="@Url.Action("FilteredIndex")" class="btn btn-secondary">All Comments</a>
+    <a href="@Url.Action("Index", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
+    <a href="@Url.Action("Index", new { filter = "unanswered" })" class="btn btn-secondary">Unanswered Comments</a>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">All Comments</a>
 </div>
 
 <table class="table">
@@ -25,7 +27,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Comment</td>
+
+                <td>@item.Comment.Content</td>
                 <td>@item.ResponseContent</td>
                 <td>@item.DateResponded</td>
                 <td>
