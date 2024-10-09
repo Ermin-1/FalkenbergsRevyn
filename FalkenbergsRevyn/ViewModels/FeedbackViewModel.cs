@@ -9,3 +9,4 @@ namespace FalkenbergsRevyn.ViewModels
         public List<Comment> Questions { get; set; } = new List<Comment>();
     }
 }
+

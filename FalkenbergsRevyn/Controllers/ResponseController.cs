@@ -2,6 +2,7 @@
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using System.Threading.Tasks;
 using System.Linq;
 
@@ -24,10 +25,12 @@ namespace FalkenbergsRevyn.Controllers
             var responsesQuery = _context.Responses.Include(r => r.Comment).AsQueryable();
 
             // Filtrering på obesvarade kommentarer
+
             if (filter == "unanswered")
             {
                 responsesQuery = responsesQuery.Where(r => !r.Comment.IsAnswered);
             }
+
 
             // Sortering på senaste kommentarer (baserat på datum för responsen)
             if (filter == "latest")
@@ -35,16 +38,15 @@ namespace FalkenbergsRevyn.Controllers
                 responsesQuery = responsesQuery.OrderByDescending(r => r.Comment.DatePosted);
             }
 
+
             // Returnera en lista (IEnumerable) med Responses
             var responses = await responsesQuery.ToListAsync();
             return View(responses);
         }
 
-
-
-
         //GET: Response/Details/5
         public async Task<IActionResult> Details(int? id)
+
         {
             if (id == null)
             {
@@ -62,6 +64,7 @@ namespace FalkenbergsRevyn.Controllers
 
             return View(response);
         }
+
 
         //GET: Response/Create
         public IActionResult Create()
