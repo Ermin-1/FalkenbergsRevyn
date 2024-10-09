@@ -6,6 +6,7 @@
 
 <h2>Responses</h2>
 
+
 <!-- Knappar för att filtrera -->
 <div class="btn-group mb-3" role="group">
     <a href="@Url.Action("Index", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
@@ -26,6 +27,7 @@
         @foreach (var item in Model)
         {
             <tr>
+
                 <td>@item.Comment.Content</td>
                 <td>@item.ResponseContent</td>
                 <td>@item.DateResponded</td>
