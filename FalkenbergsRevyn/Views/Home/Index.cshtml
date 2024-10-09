@@ -4,6 +4,14 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if (Model == null)
+{
+    <p>Model is null</p>
+}
+else
+{
+    
+
 <div class="container">
     <div class="header">
         <img src="/images/logo.png" alt="Logo" class="logo" />
@@ -15,9 +23,9 @@
 
     <div class="feedback-section">
         <div class="feedback-category">
-            <button class="category-btn">Kritik</button>
+            <button class="category-btn">Positiva kommentarer</button>
             <div class="feedback-list">
-                @* @foreach (var comment in Model.PositiveComments)
+                @foreach (var comment in Model.PositiveComments)
                 {
                     <div class="feedback-item">
                         <p>@comment.Content</p>
@@ -25,13 +33,13 @@
                         <button class="btn small">Ta bort</button>
                         <button class="btn small">Svara</button>
                     </div>
-                } *@
+                }
             </div>
         </div>
         <div class="feedback-category">
             <button class="category-btn">Kritik</button>
             <div class="feedback-list">
-               @*  @foreach (var comment in Model.CriticalComments)
+                @foreach (var comment in Model.CriticalComments)
                 {
                     <div class="feedback-item">
                         <p>@comment.Content</p>
@@ -39,14 +47,14 @@
                         <button class="btn small">Ta bort</button>
                         <button class="btn small">Svara</button>
                     </div>
-                } *@
+                }
             </div>
         </div>
 
         <div class="feedback-category">
             <button class="category-btn">Frågor</button>
             <div class="feedback-list">
-                @* @foreach (var comment in Model.Questions)
+                @foreach (var comment in Model.Questions)
                 {
                     <div class="feedback-item">
                         <p>@comment.Content</p>
@@ -54,8 +62,92 @@
                         <button class="btn small">Ta bort</button>
                         <button class="btn small">Svara</button>
                     </div>
-                } *@
+                }
             </div>
         </div>
     </div>
 </div>
+}
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+     
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        width: 200px;
+    }
+
+    .navigation {
+        display: flex;
+        gap: 10px;
+    }
+
+    .feedback-section {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .feedback-category {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 10px;
+        flex: 0 0 30%;
+    }
+
+    .category-btn {
+        background-color: white;
+        color: black;
+        border: none;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .feedback-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .feedback-item {
+        background-color: #444;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+        .feedback-item input {
+            margin-top: 10px;
+            width: 100%;
+            padding: 5px;
+        }
+
+    .btn {
+        background-color: white;
+        color: black;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+        .btn.small {
+            font-size: 12px;
+            padding: 5px 8px;
+        }
+</style>

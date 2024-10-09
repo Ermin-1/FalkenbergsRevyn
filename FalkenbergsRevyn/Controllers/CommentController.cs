@@ -18,13 +18,8 @@ namespace FalkenbergsRevyn.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var feedbackViewModel = new FeedbackViewModel
-            {
-                PositiveComments = await _context.Comments.Where(c => c.Category == "Positiva").ToListAsync(),
-                CriticalComments = await _context.Comments.Where(c => c.Category == "Kritik").ToListAsync() ,
-                Questions = await _context.Comments.Where(c => c.Category == "Question").ToListAsync()
-            };
-            return View(feedbackViewModel);
+            var comments = await _context.Comments.ToListAsync();
+            return View(comments);
         }
 
         // Detaljerad vy för en specifik kommentar
