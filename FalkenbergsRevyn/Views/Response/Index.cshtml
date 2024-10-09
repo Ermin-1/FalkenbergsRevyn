@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FalkenbergsRevyn.Models.Response>
+
+@{
+    ViewData["Title"] = "Response List";
+}
+
+<h2>Responses</h2>
+
+<div class="btn-group mb-3" role="group">
+    <a href="@Url.Action("FilteredIndex", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
+    <a href="@Url.Action("FilteredIndex", new { filter = "unanswered" })" class="btn btn-secondary">Unanswered Comments</a>
+    <a href="@Url.Action("FilteredIndex")" class="btn btn-secondary">All Comments</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Related Comment</th>
+            <th>Response Content</th>
+            <th>Date Responded</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Comment</td>
+                <td>@item.ResponseContent</td>
+                <td>@item.DateResponded</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ResponseId">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ResponseId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ResponseId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Create New Response</a>
