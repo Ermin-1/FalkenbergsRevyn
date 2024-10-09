@@ -23,7 +23,7 @@ namespace FalkenbergsRevyn.Controllers
 
             try
             {
-                var apiKey = "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";
+                var apiKey = "";
                 ChatClient client = new(apiKey: apiKey, model: "gpt-4");
 
                 var chatCompletion = await client.CompleteChatAsync("Say, This as a test");
