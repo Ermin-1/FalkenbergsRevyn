@@ -1,5 +1,6 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using Microsoft.AspNetCore.Authorization;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace FalkenbergsRevyn.Controllers
             _context = context;
         }
 
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var comments = await _context.Comments.ToListAsync();
@@ -25,6 +27,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Detaljerad vy för en specifik kommentar
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)  // Fixade stavfel från "Detilas" till "Details"
         {
             if (id == null)
@@ -42,11 +45,13 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Skapa en ny kommentar
+        //[Authorize (Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Content,Category")] Comment comment)
@@ -78,6 +83,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Ta bort en kommentar (GET)
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -95,6 +101,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // Bekräfta och ta bort en kommentar (POST)
+        //[Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
