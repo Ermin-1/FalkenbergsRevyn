@@ -1,4 +1,5 @@
-﻿@model FeedbackViewModel
+﻿@using Microsoft.AspNetCore.Html
+@model FeedbackViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,8 +11,6 @@
 }
 else
 {
-
-
     <div class="container">
         <div class="header">
             <img src="/images/logo.png" alt="Logo" class="logo" />
@@ -20,7 +19,6 @@ else
                 <button class="btn">Logga ut</button>
             </div>
         </div>
-
         <div class="feedback-section">
             @*  Positive *@
             <div class="feedback-category">
@@ -31,26 +29,45 @@ else
                             Filtrera kommentarer
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest" })">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered" })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index")">Alla</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category ="positive"})">Senaste</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="positive" })">Olästa</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category="positive"})">Alla</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="feedback-list">
-                    @foreach (var comment in Model.PositiveComments)
+                    @foreach (var comment in Model.PositiveComments.Take(5))
                     {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
-                            <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
-                                <input type="hidden" name="CommentId" value="@comment.CommentId" />
-                                <input type="text" name="ResponseContent" placeholder="Svara här." required />
-                                <button class="btn small" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId"><i class="fa-regular fa-comment-dots"></i></button>
-                            </form>
-                            <form asp-action="Delete" asp-controller="Comment" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@comment.CommentId" />
-                                <button type="submit" class="btn small">Ta bort från listan</button>
-                            </form>
+                            @* <input type="text" name="ResponseContent" value="@comment.Responses.FirstOrDefault()?.ResponseContent"> *@
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId">Se genererat svar</button>
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
+                            @* This is modal *@
+                            @await Html.PartialAsync("ModalBase", new ModalViewModel
+               {
+                   ModalId = "replyModal-" + comment.CommentId,
+                   Title = "Genererat svar",
+                   Body = new HtmlString("Inte kopplat!"),
+                   FooterButtons = new List<IHtmlContent>
+                    {
+                    new HtmlString("<button type='button' class='btn btn-primary'>Dölj från listan</button>"),
+                    new HtmlString("<form asp-action='Edit' asp-controller='Response' method='post'><button type='submit' class='btn btn-primary'>Ändra svar</button></form>"),
+                    new HtmlString("<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>")
+                    }
+               })
+                            @* modal for hide*@
+                            @await Html.PartialAsync("ModalBase", new ModalViewModel
+               {
+                   ModalId = "hideModal-" + comment.CommentId,
+                   Title = "",
+                   Body = new HtmlString("Är du säker att du vill dölja kommentaren?"),
+                   FooterButtons = new List<IHtmlContent>
+                    {
+                    new HtmlString ("<button type='button' class='btn btn-primary'>Ja! Dölj!</button>"),
+                    new HtmlString ("<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Nej</button>")
+                    }
+               })
                         </div>
                     }
                 </div>
@@ -64,27 +81,53 @@ else
                             Filtrera kommentarer
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest" })">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered" })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index")">Alla</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category="critical" })">Senaste</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="critical" })">Olästa</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category ="critical"})">Alla</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="feedback-list">
-                    @foreach (var comment in Model.CriticalComments)
+                    @foreach (var comment in Model.CriticalComments.Take(5))
                     {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
-                            <button class="btn small" data-bs-toggle="modal" data-bs-target="#deleteModal" type="button"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                            @* Kankse ta bort input om han vill ha bara pop-up*@
                             <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
                                 <input type="hidden" name="CommentId" value="@comment.CommentId" />
                                 <input type="text" name="ResponseContent" placeholder="Svara här." required />
-                                <button class="btn small" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId"><i class="fa-regular fa-comment-dots"></i></button>
+                                <button type="submit" class="btn small">Save svara här</button>
                             </form>
-                            <form asp-action="Delete" asp-controller="Comment" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@comment.CommentId" />
-                                <button type="submit" class="btn small"><i class="fa-regular fa-trash-can"></i></button>
-                            </form>
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#answerModal-@comment.CommentId">Svara</button>
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Delete</button>
+
+                            @await Html.PartialAsync("ModalBase", new ModalViewModel
+               {
+                   ModalId = $"answerModal-{comment.CommentId}",
+                   Title = "Svar:",
+                   Body = new HtmlString($@"
+                    <form id='answerForm-{comment.CommentId}' asp-action='Create' asp-controller='Response' method='post'>
+                    <input type='hidden' name='CommentId' value='{comment.CommentId}' />
+                    <input type='text' name='ResponseContent' class='form-control' placeholder='Svara här.' required />
+                    <button type='submit' class='btn btn-primary mt-2'>Skicka!</button>
+                    </form>"),
+                   FooterButtons = new List<IHtmlContent>
+                    {
+                    new HtmlString("<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>")
+                    }
+               })
+
+                            @await Html.PartialAsync("ModalBase", new ModalViewModel
+               {
+                   ModalId = "hideModal-" + comment.CommentId,
+                   Title = "",
+                   Body = new HtmlString("Är du säker att du vill dölja kommentaren?"),
+                   FooterButtons = new List<IHtmlContent>
+                    {
+                    new HtmlString ( "<button type='button' class='btn btn-primary'>Ja! Dölj!</button>"),
+                    new HtmlString (   "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Nej</button>")
+                    }
+               })
                         </div>
                     }
                 </div>
@@ -98,25 +141,25 @@ else
                             Filtrera kommentarer
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest" })">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered" })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index")">Alla</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category="questions" })">Senaste</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="questions" })">Olästa</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category="questions"})">Alla</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="feedback-list">
-                    @foreach (var comment in Model.Questions)
+                    @foreach (var comment in Model.Questions.Take(5))
                     {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
                             <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
                                 <input type="hidden" name="CommentId" value="@comment.CommentId" />
                                 <input type="text" name="ResponseContent" placeholder="Svara här." required />
-                                <button class="btn small" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId">Svara</button>
+                                <button class="btn small" data-bs-toggle="modal" data-bs-target="#questionModal-@comment.CommentId">Svara</button>
                             </form>
                             <form asp-action="Delete" asp-controller="Comment" method="post" style="display:inline;">
                                 <input type="hidden" name="id" value="@comment.CommentId" />
-                                <button type="submit" class="btn small">Ta bort</button>
+                                <button type="button" class="btn small">Dölj från listan</button>
                             </form>
                         </div>
                     }
@@ -125,23 +168,6 @@ else
         </div>
     </div>
 
-    <div class="modal" id="deleteModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 }
 
 <style>
