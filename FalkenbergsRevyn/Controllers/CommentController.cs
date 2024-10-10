@@ -1,5 +1,6 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using FalkenbergsRevyn.OpenAI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,40 +8,75 @@ using System.Threading.Tasks;
 
 namespace FalkenbergsRevyn.Controllers
 {
-    public class CommentController : BaseController<Comment>
-    {
-        public CommentController(AppDbContext context) : base(context) { }
 
-        // Anpassad Create-metod för att sätta specifika standardvärden
-        //[Authorize(Roles = "Admin")]
+    /*[ApiController]
+    [Route("api/[controller]")]*/
+    public class CommentController : Controller
+    {
+        private readonly AppDbContext _context;
+        private readonly OpenAIChatBot _openAIChatBot;
+
+        public CommentController(AppDbContext context, OpenAIChatBot openAIChatBot)
+        {
+            _context = context;
+            _openAIChatBot = openAIChatBot;
+        }
+
+        [Route("Comment/Index")]
+        public async Task<IActionResult> Index()
+        {
+            var comments = await _context.Comments.ToListAsync();
+            return View(comments);
+        }
+
+        [Route("Comment/Details/{id}")]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return View(comment);
+        }
+
+        [Route("Comment/Create")]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public override async Task<IActionResult> Create(Comment comment)
+        [Route("Comment/Create")]
+        public async Task<IActionResult> Create([Bind("Content,Category")] Comment comment)
         {
             if (ModelState.IsValid)
             {
                 comment.DatePosted = DateTime.Now;
                 comment.IsAnswered = false;
                 comment.IsArchived = false;
+                
                 comment.PostId = 1; // Här kan du implementera hur det kopplas till ett specifikt inlägg
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
+                await _openAIChatBot.ProcessComments(comment);
                 return RedirectToAction(nameof(Index));
             }
 
             return View(comment);
         }
 
-        // Index- och Details-metoder ärvs från BaseController och kan skyddas med Authorize
-        //[Authorize(Roles = "Admin")]
-        public override async Task<IActionResult> Index()
-        {
-            return await base.Index();
-        }
+        [Route("Comment/Delete/{id}")]
+        public async Task<IActionResult> Delete(int? id)
 
-        //[Authorize(Roles = "Admin")]
-        public override async Task<IActionResult> Details(int? id)
         {
             return await base.Details(id);
         }
@@ -51,12 +87,20 @@ namespace FalkenbergsRevyn.Controllers
             return await base.Delete(id);
         }
 
-        //[Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public override async Task<IActionResult> DeleteConfirmed(int id)
+        [Route("Comment/Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            return await base.DeleteConfirmed(id);
+            var comment = await _context.Comments.FindAsync(id);
+            if (comment != null)
+            {
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
+
