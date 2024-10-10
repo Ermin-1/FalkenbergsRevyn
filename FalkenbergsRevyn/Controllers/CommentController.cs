@@ -2,9 +2,7 @@
 using FalkenbergsRevyn.Models;
 using FalkenbergsRevyn.OpenAI;
 using Microsoft.AspNetCore.Authorization;
-
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -64,7 +62,7 @@ namespace FalkenbergsRevyn.Controllers
                 comment.DatePosted = DateTime.Now;
                 comment.IsAnswered = false;
                 comment.IsArchived = false;
-
+                
                 comment.PostId = 1; // Här kan du implementera hur det kopplas till ett specifikt inlägg
 
                 _context.Add(comment);
@@ -78,19 +76,15 @@ namespace FalkenbergsRevyn.Controllers
 
         [Route("Comment/Delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
+
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            return await base.Details(id);
+        }
 
-            var comment = await _context.Comments.FirstOrDefaultAsync(m => m.CommentId == id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return View(comment);
+        //[Authorize(Roles = "Admin")]
+        public override async Task<IActionResult> Delete(int? id)
+        {
+            return await base.Delete(id);
         }
 
         [HttpPost, ActionName("Delete")]
