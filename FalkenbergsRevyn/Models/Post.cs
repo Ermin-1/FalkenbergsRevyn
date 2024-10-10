@@ -13,5 +13,6 @@ namespace FalkenbergsRevyn.Models
         [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy HH:mm}")]
         public DateTime DateCreated { get; set; }
         public ICollection<Comment> ? Comments { get; set; } = new List<Comment>(); // Relationen: ett inlägg har flera kommentarer
+
     }
 }

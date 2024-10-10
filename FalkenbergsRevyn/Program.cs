@@ -1,6 +1,8 @@
 using FalkenbergsRevyn.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using FalkenbergsRevyn.OpenAI;
+using FalkenbergsRevyn.Controllers;
 
 namespace FalkenbergsRevyn
 {
@@ -20,6 +22,16 @@ namespace FalkenbergsRevyn
             // Razor pages
             builder.Services.AddRazorPages();
 
+            builder.Services.AddTransient<OpenAIChatBot>(_ => new OpenAIChatBot(
+                _.GetRequiredService<AppDbContext>(),
+                _.GetRequiredService<IConfiguration>()
+                ));
+            
+            /*builder.Services.AddTransient<CommentController>(_ => new CommentController(
+                _.GetRequiredService<AppDbContext>(),
+                _.GetRequiredService<OpenAIChatBot>()
+                ));*/
+
             // Configure Identity and add roles
             builder.Services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>() // L�gg till roller i Identity
@@ -34,6 +46,8 @@ namespace FalkenbergsRevyn
                 var services = scope.ServiceProvider;
                 IdentitySeeder.SeedRolesAndAdminUser(services).Wait();
             }
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -62,6 +76,11 @@ namespace FalkenbergsRevyn
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "comment",
+                pattern: "Comment/{action}/{id?}",
+                defaults: new { controller = "Comment" });
 
             // Ensure Razor Pages are mapped
             app.MapRazorPages();

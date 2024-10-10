@@ -19,6 +19,9 @@ namespace FalkenbergsRevyn.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Comment>().ToTable("Comments");
+            modelBuilder.Entity<Response>().ToTable("Responses");
+
             // Seed data for Posts
             modelBuilder.Entity<Post>().HasData(
                 new Post { PostId = 1, Title = "Showen 2024 - Succé!", Content = "En beskrivning av den senaste showen.", DateCreated = DateTime.Now.AddDays(-30) },
