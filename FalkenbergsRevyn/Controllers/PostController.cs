@@ -1,9 +1,8 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace FalkenbergsRevyn.Controllers
 {
@@ -21,14 +20,15 @@ namespace FalkenbergsRevyn.Controllers
             return View(await _context.Posts.ToListAsync());
         }
 
-
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == id);
+            var post = await _context.Posts
+                .Include(p => p.Comments) // Include comments if needed
+                .FirstOrDefaultAsync(m => m.PostId == id);
 
             if (post == null)
             {
@@ -37,7 +37,6 @@ namespace FalkenbergsRevyn.Controllers
             return View(post);
         }
 
-        //Get: Post/AddorEdit
         [HttpGet]
         public IActionResult AddOrEdit(int id = 0)
         {
@@ -47,24 +46,29 @@ namespace FalkenbergsRevyn.Controllers
             }
             else
             {
-                return View(_context.Posts.Find(id));
+                var post = _context.Posts.Find(id);
+                if (post == null)
+                {
+                    return NotFound();
+                }
+                return View(post);
             }
         }
 
-
-
-        //Post : Post/AddOrEdit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("PostId, Title, Content, DateCreated, Comments")]Post post)
+        public async Task<IActionResult> AddOrEdit([Bind("PostId,Title,Content,DateCreated,Comments")] Post post)
         {
+            // Initialize Comments to avoid null issues
+            post.Comments ??= new List<Comment>();
+
+            if (ModelState.ContainsKey("Comments") && ModelState["Comments"].Errors.Count > 0)
+            {
+                ModelState["Comments"].Errors.Clear();
+            }
+
             if (ModelState.IsValid)
             {
-                if (ModelState["Comments"].Errors.Count > 0)
-                {
-                    ModelState["Comments"].Errors.Clear();
-                }
-
                 if (post.PostId == 0)
                 {
                     post.DateCreated = DateTime.Now;
@@ -82,37 +86,32 @@ namespace FalkenbergsRevyn.Controllers
             return View(post);
         }
 
-        //Get : Post/Delete/5
-
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
             var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == id);
 
-            if(post == null)
+            if (post == null)
             {
                 return NotFound();
             }
             return View(post);
         }
 
-        //Post : Post/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfiremed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var post = await _context.Posts.FindAsync(id);
-            if(post != null)
+            if (post != null)
             {
                 _context.Posts.Remove(post);
             }
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-
-
     }
 }

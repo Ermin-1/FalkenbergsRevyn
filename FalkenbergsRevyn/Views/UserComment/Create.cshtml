@@ -1,0 +1,21 @@
+﻿@model FalkenbergsRevyn.Models.CommentViewModel
+
+<h2>Lägg till en ny kommentar</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="Content">Kommentar</label>
+        <textarea asp-for="Content" class="form-control" rows="4" required></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="PostId" />
+
+    <button type="submit" class="btn btn-primary">Skicka</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

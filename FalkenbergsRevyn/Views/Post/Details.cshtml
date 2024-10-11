@@ -1,0 +1,21 @@
+﻿@model Post
+
+<h1>@Model.Title</h1>
+<p>@Model.Content</p>
+<p>Date Created: @Model.DateCreated</p>
+
+<h3>Comments</h3>
+@if (Model.Comments?.Any() == true)
+{
+    <ul>
+        @foreach (var comment in Model.Comments)
+        {
+            <li>@comment.Content - Posted on: @comment.DatePosted</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No comments yet.</p>
+}
+<a asp-action="Create" asp-controller="UserComment" asp-route-postId="@Model.PostId" class="btn btn-secondary">Add Comment</a>
