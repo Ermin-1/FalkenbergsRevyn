@@ -17,7 +17,7 @@ namespace FalkenbergsRevyn.Controllers
         private readonly AppDbContext _context;
         //private readonly OpenAIChatBot _openAIChatBot;
 
-        public CommentController(AppDbContext context, OpenAIChatBot openAIChatBot) : base(context)
+        public CommentController(AppDbContext context) : base(context)
         {
             _context = context;
             //_openAIChatBot = openAIChatBot;
