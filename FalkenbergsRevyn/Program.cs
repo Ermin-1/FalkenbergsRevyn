@@ -69,7 +69,7 @@ namespace FalkenbergsRevyn
             // Redirect root to login page
             app.MapGet("/", async context =>
             {
-                context.Response.Redirect("/Identity/Account/Login");
+                context.Response.Redirect("/Home/Index");
             });
 
             // MVC routing
