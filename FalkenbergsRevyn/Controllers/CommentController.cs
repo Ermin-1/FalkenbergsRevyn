@@ -3,6 +3,7 @@ using FalkenbergsRevyn.Models;
 using FalkenbergsRevyn.OpenAI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -11,12 +12,12 @@ namespace FalkenbergsRevyn.Controllers
 
     /*[ApiController]
     [Route("api/[controller]")]*/
-    public class CommentController : Controller
+    public class CommentController : BaseController<Comment>
     {
         private readonly AppDbContext _context;
         private readonly OpenAIChatBot _openAIChatBot;
 
-        public CommentController(AppDbContext context, OpenAIChatBot openAIChatBot)
+        public CommentController(AppDbContext context, OpenAIChatBot openAIChatBot) : base(context)
         {
             _context = context;
             _openAIChatBot = openAIChatBot;
@@ -75,11 +76,6 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         [Route("Comment/Delete/{id}")]
-        public async Task<IActionResult> Delete(int? id)
-
-        {
-            return await base.Details(id);
-        }
 
         //[Authorize(Roles = "Admin")]
         public override async Task<IActionResult> Delete(int? id)
