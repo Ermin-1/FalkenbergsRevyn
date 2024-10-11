@@ -15,12 +15,12 @@ namespace FalkenbergsRevyn.Controllers
     public class CommentController : BaseController<Comment>
     {
         private readonly AppDbContext _context;
-        private readonly OpenAIChatBot _openAIChatBot;
+        //private readonly OpenAIChatBot _openAIChatBot;
 
         public CommentController(AppDbContext context, OpenAIChatBot openAIChatBot) : base(context)
         {
             _context = context;
-            _openAIChatBot = openAIChatBot;
+            //_openAIChatBot = openAIChatBot;
         }
 
         [Route("Comment/Index")]
@@ -68,7 +68,7 @@ namespace FalkenbergsRevyn.Controllers
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                await _openAIChatBot.ProcessComments(comment);
+                //await _openAIChatBot.ProcessComments(comment);
                 return RedirectToAction(nameof(Index));
             }
 
