@@ -70,7 +70,7 @@ namespace FalkenbergsRevyn.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             // Omdirigera till Comment/Index
-            returnUrl = Url.Action("Index", "Comment");
+            returnUrl = Url.Action("Index", "Home");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
