@@ -1,36 +1,17 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-<!--
-Anpassad stil f�r inloggningssidan -->
-/* Lila bakgrund f�r inloggningssidan */
-body.login-page {
-    background-color: #6a1b9a; /* Lila bakgrund */
-    color: white;
+/* Grundläggande layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ännu ljusare nyanser av lila */
+    background-size: cover;
+    background-attachment: fixed; /* Fäster bakgrunden för bättre effekt */
+    color: #333;
 }
 
-.login-container {
+/* Specifika stilar för login-sidan */
+.login-page {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,13 +33,196 @@ body.login-page {
         margin-bottom: 20px;
     }
 
+/* Form och knappar */
 .form-floating input {
     background-color: #f3e5f5; /* Ljus lila */
     border: 1px solid #ab47bc; /* Lila kant */
 }
 
 .form-floating label {
-    color: #6a1b9a; /* Lila f�rg p� label */
+    color: #6a1b9a; /* Lila färg på label */
+}
+body {
+    margin-bottom: 60px;
+    background-color: #343a40; /* Bootstrap dark gray */
+    color: #f8f9fa; /* Light text color for readability */
+    margin: 0;
+    padding: 0;
+
+.btn-primary {
+    background-color: #8e24aa;
+    border-color: #8e24aa;
+}
+
+    .btn-primary:hover {
+        background-color: #6a1b9a;
+        border-color: #6a1b9a;
+    }
+
+
+/* Footer-stilar */
+footer {
+    background-color: #f3e5f5; /* Ljus lila bakgrund för att matcha sidan */
+    border-top: 1px solid #ab47bc; /* Lila kant */
+    padding: 20px 0; /* Ger lite extra utrymme i fotern */
+    color: #6a1b9a; /* Mjuk lila text */
+    font-size: 14px;
+
+}
+
+    footer a {
+        color: #8e24aa; /* Färg på länken */
+        text-decoration: none; /* Tar bort standard understrykning */
+    }
+
+        footer a:hover {
+            color: #6a1b9a; /* Mörkare lila vid hover */
+            text-decoration: underline; /* Understrykning vid hover för bättre synlighet */
+        }
+
+    footer .container {
+        display: flex;
+        justify-content: center; /* Centrera texten horisontellt */
+        align-items: center; /* Justerar innehållet vertikalt i mitten */
+    }
+
+        footer .container p {
+            margin: 0; /* Tar bort marginal runt texten */
+        }
+
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 200px;
+}
+
+.navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.feedback-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.feedback-category {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 10px;
+    flex: 0 0 30%;
+}
+
+.category-btn {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.modalbtn {
+    background-color: blue;
+    border: 10px;
+}
+
+.feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feedback-item {
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .feedback-item input {
+        margin-top: 10px;
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+.btn {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+    .btn.small {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+/* Runda hörn på bilder */
+img {
+    border-radius: 10px; /* Rundar hörn på bilder */
+}/* Grundläggande layout */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ännu ljusare nyanser av lila */
+    background-size: cover;
+    background-attachment: fixed; /* Fäster bakgrunden för bättre effekt */
+    color: #333;
+}
+
+/* Specifika stilar för login-sidan */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+    .login-box h1 {
+        color: #6a1b9a;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+/* Form och knappar */
+.form-floating input {
+    background-color: #f3e5f5; /* Ljus lila */
+    border: 1px solid #ab47bc; /* Lila kant */
+}
+
+.form-floating label {
+    color: #6a1b9a; /* Lila färg på label */
 }
 
 .btn-primary {
@@ -71,14 +235,124 @@ body.login-page {
         border-color: #6a1b9a;
     }
 
-.text-danger {
-    color: #d32f2f;
+
+/* Footer-stilar */
+footer {
+    background-color: #f3e5f5; /* Ljus lila bakgrund för att matcha sidan */
+    border-top: 1px solid #ab47bc; /* Lila kant */
+    padding: 20px 0; /* Ger lite extra utrymme i fotern */
+    color: #6a1b9a; /* Mjuk lila text */
+    font-size: 14px;
 }
 
-a {
-    color: #8e24aa;
-}
-
-    a:hover {
-        color: #6a1b9a;
+    footer a {
+        color: #8e24aa; /* Färg på länken */
+        text-decoration: none; /* Tar bort standard understrykning */
     }
+
+        footer a:hover {
+            color: #6a1b9a; /* Mörkare lila vid hover */
+            text-decoration: underline; /* Understrykning vid hover för bättre synlighet */
+        }
+
+    footer .container {
+        display: flex;
+        justify-content: center; /* Centrera texten horisontellt */
+        align-items: center; /* Justerar innehållet vertikalt i mitten */
+    }
+
+        footer .container p {
+            margin: 0; /* Tar bort marginal runt texten */
+        }
+
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 200px;
+}
+
+.navigation {
+    display: flex;
+    gap: 10px;
+}
+
+.feedback-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.feedback-category {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 10px;
+    flex: 0 0 30%;
+}
+
+.category-btn {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.modalbtn {
+    background-color: blue;
+    border: 10px;
+}
+
+.feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feedback-item {
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .feedback-item input {
+        margin-top: 10px;
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+.btn {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+    .btn.small {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+
+/* Runda hörn på bilder */
+img {
+    border-radius: 10px; /* Rundar hörn på bilder */
+}
