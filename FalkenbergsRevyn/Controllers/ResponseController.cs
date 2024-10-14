@@ -82,9 +82,9 @@ namespace FalkenbergsRevyn.Controllers
                 response.DateResponded = DateTime.Now;
                 _context.Add(response);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+             return RedirectToAction(nameof(Index));
         }
 
         // GET: Response/Edit/5
