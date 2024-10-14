@@ -12,26 +12,21 @@
 else
 {
     <div class="container">
-        <div class="header">
-            <img src="/images/logo.png" alt="Logo" class="logo" />
-            <div class="navigation">
-                <button class="btn">Positiva kommentarer</button>
-                <button class="btn">Logga ut</button>
-            </div>
-        </div>
+        @await Html.PartialAsync("_Header")
         <div class="feedback-section">
             @*  Positive *@
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <button class="category-btn">Positiva</button>
+                   @*  @await Html.PartialAsync("_FilterDropdown", "Positiva") *@
                     <div class="dropdown mb-3">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             Filtrera kommentarer
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category ="positive"})">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="positive" })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category="positive"})">Alla</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category ="Positiva"})">Senaste</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="Positiva" })">Olästa</a></li>
+                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category="Positiva"})">Alla</a></li>
                         </ul>
                     </div>
                 </div>
@@ -43,31 +38,51 @@ else
                             @* <input type="text" name="ResponseContent" value="@comment.Responses.FirstOrDefault()?.ResponseContent"> *@
                             <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId">Se genererat svar</button>
                             <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
-                            @* This is modal *@
-                            @await Html.PartialAsync("ModalBase", new ModalViewModel
-               {
-                   ModalId = "replyModal-" + comment.CommentId,
-                   Title = "Genererat svar",
-                   Body = new HtmlString("Inte kopplat!"),
-                   FooterButtons = new List<IHtmlContent>
-                    {
-                    new HtmlString("<button type='button' class='btn btn-primary'>Dölj från listan</button>"),
-                    new HtmlString("<form asp-action='Edit' asp-controller='Response' method='post'><button type='submit' class='btn btn-primary'>Ändra svar</button></form>"),
-                    new HtmlString("<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>")
-                    }
-               })
-                            @* modal for hide*@
-                            @await Html.PartialAsync("ModalBase", new ModalViewModel
-               {
-                   ModalId = "hideModal-" + comment.CommentId,
-                   Title = "",
-                   Body = new HtmlString("Är du säker att du vill dölja kommentaren?"),
-                   FooterButtons = new List<IHtmlContent>
-                    {
-                    new HtmlString ("<button type='button' class='btn btn-primary'>Ja! Dölj!</button>"),
-                    new HtmlString ("<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Nej</button>")
-                    }
-               })
+
+                            @* reply model *@
+                            <div class="modal fade" id="replyModal-@comment.CommentId" tabindex="-1" aria-labelledby="replyModalLabel-@comment.CommentId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-black border-0">
+                                            <h1>Genererat svar</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black border-0">
+                                            <h4>@(string.IsNullOrEmpty(comment.Responses?.FirstOrDefault()?.ResponseContent) ? "Inget svar tillgängligt" : comment.Responses?.FirstOrDefault()?.ResponseContent)</h4>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <form asp-action="ArchiveComment" asp-controller="Comment" method="post" style="display:inline;">
+                                                <input type="hidden" name="commentId" value="@comment.CommentId" /> 
+                                                <button type="submit" class="btn small">Dölj från listan.</button>
+                                            </form>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Hide Modal*@
+                            <div class="modal fade" id="hideModal-@comment.CommentId" tabindex="-1" aria-labelledby="hideModalLabel-@comment.CommentId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-black border-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black border-0">
+                                            <h2>Är du säker att du vill dölja kommentaren?</h2>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <form asp-action="ArchiveComment" asp-controller="Comment" method="post" style="display:inline;">
+                                                <input type="hidden" name="commentId" value="@comment.CommentId" /> 
+                                                <button type="submit" class="btn small">Ja! Dölj!</button>
+                                            </form>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+               
                         </div>
                     }
                 </div>
@@ -93,41 +108,57 @@ else
                         <div class="feedback-item">
                             <p>@comment.Content</p>
                             @* Kankse ta bort input om han vill ha bara pop-up*@
-                            <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
+                          @*   <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
                                 <input type="hidden" name="CommentId" value="@comment.CommentId" />
                                 <input type="text" name="ResponseContent" placeholder="Svara här." required />
                                 <button type="submit" class="btn small">Save svara här</button>
-                            </form>
+                            </form> *@
                             <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#answerModal-@comment.CommentId">Svara</button>
-                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Delete</button>
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
 
-                            @await Html.PartialAsync("ModalBase", new ModalViewModel
-               {
-                   ModalId = $"answerModal-{comment.CommentId}",
-                   Title = "Svar:",
-                   Body = new HtmlString($@"
-                    <form id='answerForm-{comment.CommentId}' asp-action='Create' asp-controller='Response' method='post'>
-                    <input type='hidden' name='CommentId' value='{comment.CommentId}' />
-                    <input type='text' name='ResponseContent' class='form-control' placeholder='Svara här.' required />
-                    <button type='submit' class='btn btn-primary mt-2'>Skicka!</button>
-                    </form>"),
-                   FooterButtons = new List<IHtmlContent>
-                    {
-                    new HtmlString("<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>")
-                    }
-               })
 
-                            @await Html.PartialAsync("ModalBase", new ModalViewModel
-               {
-                   ModalId = "hideModal-" + comment.CommentId,
-                   Title = "",
-                   Body = new HtmlString("Är du säker att du vill dölja kommentaren?"),
-                   FooterButtons = new List<IHtmlContent>
-                    {
-                    new HtmlString ( "<button type='button' class='btn btn-primary'>Ja! Dölj!</button>"),
-                    new HtmlString (   "<button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Nej</button>")
-                    }
-               })
+                            <div class="modal fade" id="answerModal-@comment.CommentId" tabindex="-1" aria-labelledby="answerModalLabel-@comment.CommentId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-black border-0">
+                                            <h1>svar</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black border-0">
+                                            <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
+                                                <input type="hidden" name="CommentId" value="@comment.CommentId" />
+                                                <input type="text" name="ResponseContent" placeholder="Svara här." required />
+                                                <button type="submit" class="btn small">Save svara här</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="hideModal-@comment.CommentId" tabindex="-1" aria-labelledby="hideModalLabel-@comment.CommentId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-black border-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black border-0">
+                                            <h2>Är du säker att du vill dölja kommentaren?</h2>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <form asp-action="ArchiveComment" asp-controller="Comment" method="post" style="display:inline;">
+                                                <input type="hidden" name="commentId" value="@comment.CommentId" />
+                                                <button type="submit" class="btn small">Ja! Dölj!</button>
+                                            </form>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+
                         </div>
                     }
                 </div>
@@ -152,103 +183,61 @@ else
                     {
                         <div class="feedback-item">
                             <p>@comment.Content</p>
-                            <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
+                           @*  <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
                                 <input type="hidden" name="CommentId" value="@comment.CommentId" />
                                 <input type="text" name="ResponseContent" placeholder="Svara här." required />
-                                <button class="btn small" data-bs-toggle="modal" data-bs-target="#questionModal-@comment.CommentId">Svara</button>
-                            </form>
-                            <form asp-action="Delete" asp-controller="Comment" method="post" style="display:inline;">
-                                <input type="hidden" name="id" value="@comment.CommentId" />
-                                <button type="button" class="btn small">Dölj från listan</button>
-                            </form>
+                                <button class="btn small" data-bs-toggle="modal" data-bs-target="#questionModal-@comment.CommentId">Svara här</button>
+                            </form> *@
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#answerModal-@comment.CommentId">Svara</button>
+                            <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
+
+                            <div class="modal fade" id="answerModal-@comment.CommentId" tabindex="-1" aria-labelledby="answerModalLabel-@comment.CommentId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-black border-0">
+                                            <h1>svar</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black border-0">
+                                            <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
+                                                <input type="hidden" name="CommentId" value="@comment.CommentId" />
+                                                <input type="text" name="ResponseContent" placeholder="Svara här." required />
+                                                <button type="submit" class="btn small">Save svara här</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="hideModal-@comment.CommentId" tabindex="-1" aria-labelledby="hideModalLabel-@comment.CommentId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-black border-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-black border-0">
+                                            <h2>Är du säker att du vill dölja kommentaren?</h2>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <form asp-action="ArchiveComment" asp-controller="Comment" method="post" style="display:inline;">
+                                                <input type="hidden" name="commentId" value="@comment.CommentId" />
+                                                <button type="submit" class="btn small">Ja! Dölj!</button>
+                                            </form>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
             </div>
         </div>
     </div>
-
+  
 }
+@await Html.PartialAsync("_Styles")
 
-<style>
-    body {
-        background-color: black;
-        color: white;
-        font-family: Arial, sans-serif;
-    }
 
-    .container {
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .logo {
-        width: 200px;
-    }
-
-    .navigation {
-        display: flex;
-        gap: 10px;
-    }
-
-    .feedback-section {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-    }
-
-    .feedback-category {
-        background-color: #333;
-        padding: 20px;
-        border-radius: 10px;
-        margin: 0 10px;
-        flex: 0 0 30%;
-    }
-
-    .category-btn {
-        background-color: white;
-        color: black;
-        border: none;
-        padding: 10px 20px;
-        margin-bottom: 20px;
-        /*    cursor: pointer; */
-        border-radius: 5px;
-    }
-
-    .feedback-list {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .feedback-item {
-        background-color: #444;
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-        .feedback-item input {
-            margin-top: 10px;
-            width: 100%;
-            padding: 5px;
-        }
-
-    .btn {
-        background-color: white;
-        color: black;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        margin-top: 10px;
-        border-radius: 5px;
-    }
-
-        .btn.small {
-            font-size: 12px;
-            padding: 5px 8px;
-        }
-</style>
