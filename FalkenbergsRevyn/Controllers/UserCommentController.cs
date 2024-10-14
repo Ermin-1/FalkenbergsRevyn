@@ -1,6 +1,7 @@
 ﻿//Lets us create new comments and view them to check if they correctly gets a category of Kritik, Positv, fråga or Övrigt
 using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace FalkenbergsRevyn.Controllers
             _context = context;
         }
 
+
         // GET: UserComment/Create
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Create(int postId)
         {
             var viewModel = new CommentViewModel { PostId = postId };
@@ -24,6 +27,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // POST: UserComment/Create
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CommentViewModel model)

@@ -24,6 +24,7 @@ namespace FalkenbergsRevyn.Controllers
             _openAIChatBot = openAIChatBot;
         }
 
+        [Authorize(Roles = "Admin,User")]
         [Route("Comment/Index")]
         public async Task<IActionResult> Index()
         {
@@ -31,6 +32,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(comments);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [Route("Comment/Details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -48,12 +50,15 @@ namespace FalkenbergsRevyn.Controllers
             return View(comment);
         }
 
+
+        [Authorize(Roles = "Admin,User")]
         [Route("Comment/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Comment/Create")]
@@ -76,6 +81,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(comment);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [Route("Comment/Delete/{id}")]
 
         //[Authorize(Roles = "Admin")]
@@ -84,6 +90,8 @@ namespace FalkenbergsRevyn.Controllers
             return await base.Delete(id);
         }
 
+
+        [Authorize(Roles = "Admin,User")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Route("Comment/Delete/{id}")]
@@ -98,6 +106,8 @@ namespace FalkenbergsRevyn.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public async Task<IActionResult> ArchiveComment(int commentId)
         {

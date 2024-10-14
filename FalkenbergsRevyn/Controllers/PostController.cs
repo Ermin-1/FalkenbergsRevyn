@@ -1,5 +1,6 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -15,11 +16,13 @@ namespace FalkenbergsRevyn.Controllers
             this._context = context;
         }
 
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Posts.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public IActionResult AddOrEdit(int id = 0)
         {
@@ -55,6 +59,7 @@ namespace FalkenbergsRevyn.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEdit([Bind("PostId,Title,Content,DateCreated,Comments")] Post post)
@@ -86,6 +91,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -101,6 +107,7 @@ namespace FalkenbergsRevyn.Controllers
             return View(post);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
