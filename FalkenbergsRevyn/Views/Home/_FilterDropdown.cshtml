@@ -2,10 +2,11 @@
 
 <div class="dropdown mb-3">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Filtrera kommentarer!!!!
+        Filtrera kommentarer
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category = Model })">Senaste</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest", category = Model })">Älsta</a></li>
         <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category = Model })">Olästa</a></li>
         <li><a class="dropdown-item" href="@Url.Action("Index", new { category = Model })">Alla</a></li>
     </ul>

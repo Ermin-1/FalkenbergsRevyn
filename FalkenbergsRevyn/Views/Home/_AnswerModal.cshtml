@@ -1,0 +1,22 @@
+﻿@model Comment
+
+<div class="modal fade" id="answerModal-@Model.CommentId" tabindex="-1" aria-labelledby="answerModalLabel-@Model.CommentId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header text-black border-0">
+                <h1>svar</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-black border-0">
+                <form asp-action="Create" asp-controller="Response" method="post" style="display:inline;">
+                    <input type="hidden" name="CommentId" value="@Model.CommentId" />
+                    <input type="text" name="ResponseContent" placeholder="Svara här." required />
+                    <button type="submit" class="btn small">Save svara här</button>
+                </form>
+            </div>
+            <div class="modal-footer border-0">
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+            </div>
+        </div>
+    </div>
+</div>
