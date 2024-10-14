@@ -33,7 +33,63 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td>@model IEnumerable<Post>
+
+@{
+    ViewData["Title"] = "Posts";
+    ViewData["PageActionText"] = "+ Add Category";
+    ViewData["PageActionUrl"] = "/Posts/AddOrEdit";
+}
+
+<!-- Full-height dark background wrapper -->
+<div class="bg-dark text-light min-vh-100 d-flex flex-column">
+    <div class="container mt-5 flex-grow-1 pb-5">
+        <h2 class="text-center text-light">Posts</h2>
+        <div class="d-flex justify-content-end mb-3">
+            <a class="btn btn-primary" href="/Posts/AddOrEdit">Add New Post</a>
+        </div>
+        <table class="table table-dark table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Title)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Content)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.DateCreated)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Comments)</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Content)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DateCreated)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Comments)</td>
+                        <td>
+                            <a class="btn btn-sm btn-info" asp-action="AddOrEdit" asp-route-id="@item.PostId" title="Edit"><i class="fa-solid fa-edit"></i></a>
+                            <a class="btn btn-sm btn-secondary" asp-action="Create" asp-controller="UserComment" asp-route-postId="@item.PostId" title="Add Comment"><i class="fa-solid fa-comment"></i></a>
+                            <form asp-action="Delete" asp-route-id="@item.PostId" title="Delete" method="post" style="display:inline-block;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer that remains at the bottom of the page -->
+    <footer class="text-center py-3">
+        <div class="container">
+            &copy; 2024 - FalkenbergsRevyn - <a asp-area="" asp-controller="Home" asp-action="Privacy" class="text-light">Privacy</a>
+        </div>
+    </footer>
+</div>
+
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>

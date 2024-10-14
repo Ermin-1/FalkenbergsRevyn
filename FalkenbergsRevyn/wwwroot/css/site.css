@@ -18,7 +18,11 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #343a40; /* Bootstrap dark gray */
+    color: #f8f9fa; /* Light text color for readability */
+    margin: 0;
+    padding: 0;
 }
 
 <!--
