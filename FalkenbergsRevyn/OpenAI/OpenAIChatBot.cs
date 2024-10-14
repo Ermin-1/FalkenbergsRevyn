@@ -1,4 +1,4 @@
-using FalkenbergsRevyn.Data;
+﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
@@ -31,7 +31,7 @@ namespace FalkenbergsRevyn.OpenAI
                 {
                     var textToBeAnswered = comment.Content;
 
-
+                   
                     // Lägger till specifika instruktioner för ett ödmjukt och välkomnande svar
                     var prompt = $"Kommentaren är: \"{textToBeAnswered}\". Ge ett vänligt, ödmjukt och välkomnande svar som uttrycker uppskattning, utan att lägga till onödigt innehåll. Håll svaret kort och artigt.";
 
@@ -69,4 +69,3 @@ namespace FalkenbergsRevyn.OpenAI
         }
     }
 }
-
