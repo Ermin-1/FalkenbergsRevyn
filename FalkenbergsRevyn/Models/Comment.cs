@@ -10,6 +10,6 @@
         public bool IsArchived { get; set; }
 
         public int PostId { get; set; }       // Relationen: kommentar hör till ett inlägg public Post Post { get; set; }        // Navigeringsegenskap till Post  public ICollection<Response> Responses { get; set; }  // Relationen: en kommentar kan ha flera svar
-
+        public ICollection<Response>? Responses { get; set; }  
     }
 }

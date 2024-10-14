@@ -1,3 +1,104 @@
+
+/* Bakgrund för hela sidan */
+body {
+    background: linear-gradient(45deg, #8360c3, #2ebf91);
+    background-size: cover;
+    color: #fff; /* Vit textfärg för kontrast mot bakgrunden */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+/* Justera wrappern för att centrera innehållet */
+#wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Stil för header */
+header.alt {
+    text-align: center;
+    padding: 50px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* Nav styling */
+#nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+    #nav ul li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+        #nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+            #nav ul li a:hover {
+                color: #ddd;
+            }
+
+/* Styling for sections */
+section.main {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Stil för knappar */
+button, .button {
+    background-color: #4CAF50; /* Grön bakgrund */
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+    button:hover, .button:hover {
+        background-color: white;
+        color: black;
+        border: 2px solid #4CAF50;
+    }
+
+/* Footer styling */
+#footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 html {
   font-size: 14px;
 }
