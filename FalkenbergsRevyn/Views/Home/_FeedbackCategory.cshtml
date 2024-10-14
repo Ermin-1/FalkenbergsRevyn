@@ -1,0 +1,14 @@
+﻿@model FeedbackCategoryViewModel
+
+<div class="feedback-category">
+    <div class="d-flex justify-content-between">
+        <button class="category-btn">@Model.Title</button>
+        @await Html.PartialAsync("_FilterDropdown", Model.CategoryType)
+    </div>
+    <div class="feedback-list">
+        @foreach (var comment in Model.Comments.Take(5))
+        {
+            @await Html.PartialAsync("_FeedbackItem", comment)
+        }
+   </div>
+</div>

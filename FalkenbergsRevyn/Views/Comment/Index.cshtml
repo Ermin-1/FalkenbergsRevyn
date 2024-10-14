@@ -8,9 +8,12 @@
     <table class="table table-dark table-hover">
         <thead class="thead-dark">
             <tr>
+                <th scope="col">Id</th>
                 <th scope="col">Content</th>
                 <th scope="col">Category</th>
                 <th scope="col">Date</th>
+                <th scope="col">IsArchived</th>
+                <th scope="col">Isread</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -18,9 +21,13 @@
             @foreach (var comment in Model)
             {
                 <tr>
+                    
+                    <td>@comment.CommentId</td>
                     <td>@comment.Content</td>
                     <td>@comment.Category</td>
                     <td>@comment.DatePosted</td>
+                    <td>@comment.IsArchived</td>
+                    <td>@comment.IsAnswered</td>
                     <td>
                         <a class="btn btn-sm btn-warning" href="/Comment/Details/@comment.CommentId"><i class="fa-solid fa-magnifying-glass-plus"></i></a>
                        
