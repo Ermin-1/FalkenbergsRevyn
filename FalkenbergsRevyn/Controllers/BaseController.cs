@@ -1,5 +1,6 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace FalkenbergsRevyn.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin,User")]
         protected async Task<IActionResult> GetItemOrNotFound(int? id)
         {
             if (id == null)
@@ -29,22 +31,26 @@ namespace FalkenbergsRevyn.Controllers
             return item == null ? NotFound() : View(item);
         }
 
+        [Authorize(Roles = "Admin,User")]
         public virtual async Task<IActionResult> Index()
         {
             var items = await _context.Set<T>().ToListAsync();
             return View(items);
         }
 
+        [Authorize(Roles = "Admin,User")]
         public virtual async Task<IActionResult> Details(int? id)
         {
             return await GetItemOrNotFound(id);
         }
 
+        [Authorize(Roles = "Admin,User")]
         public virtual IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual async Task<IActionResult> Create(T item)
@@ -58,11 +64,13 @@ namespace FalkenbergsRevyn.Controllers
             return View(item);
         }
 
+        [Authorize(Roles = "Admin,User")]
         public virtual async Task<IActionResult> Delete(int? id)
         {
             return await GetItemOrNotFound(id);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public virtual async Task<IActionResult> DeleteConfirmed(int id)
