@@ -79,10 +79,9 @@ namespace FalkenbergsRevyn.Controllers
         {
             if (ModelState.IsValid)
             {
-                response.DateResponded = DateTime.Now;
                 _context.Add(response);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Index));
             }
             return View(response);
         }
