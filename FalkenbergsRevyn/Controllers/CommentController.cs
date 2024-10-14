@@ -21,6 +21,7 @@ namespace FalkenbergsRevyn.Controllers
         {
             _context = context;
             _openAIChatBot = openAIChatBot;
+            _openAIChatBot = openAIChatBot;
         }
 
         [Route("Comment/Index")]
