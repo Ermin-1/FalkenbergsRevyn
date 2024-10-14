@@ -33,7 +33,7 @@ namespace FalkenbergsRevyn.Data
                 {
                     UserName = "admin@example.com",
                     Email = "admin@example.com",
-                    EmailConfirmed = true // Ställ in EmailConfirmed till true
+                    EmailConfirmed = true
                 };
 
                 string adminPassword = "Admin@123"; // Ange ett starkt lösenord
@@ -46,11 +46,38 @@ namespace FalkenbergsRevyn.Data
             }
             else
             {
-                // Om adminanvändaren redan finns, kontrollera om EmailConfirmed är satt till false och uppdatera om så är fallet
                 if (!adminUser.EmailConfirmed)
                 {
                     adminUser.EmailConfirmed = true;
                     await userManager.UpdateAsync(adminUser);
+                }
+            }
+
+            // Skapa en användare för Magnus om den inte redan finns
+            var magnusUser = await userManager.FindByEmailAsync("magnus@example.com");
+            if (magnusUser == null)
+            {
+                magnusUser = new IdentityUser()
+                {
+                    UserName = "magnus@example.com",
+                    Email = "magnus@example.com",
+                    EmailConfirmed = true
+                };
+
+                string magnusPassword = "Magnus@123"; // Ange ett starkt lösenord
+                var createMagnusUser = await userManager.CreateAsync(magnusUser, magnusPassword);
+                if (createMagnusUser.Succeeded)
+                {
+                    // Tilldela User-rollen till Magnus
+                    await userManager.AddToRoleAsync(magnusUser, "User");
+                }
+            }
+            else
+            {
+                if (!magnusUser.EmailConfirmed)
+                {
+                    magnusUser.EmailConfirmed = true;
+                    await userManager.UpdateAsync(magnusUser);
                 }
             }
         }
