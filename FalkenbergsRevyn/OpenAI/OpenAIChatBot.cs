@@ -31,10 +31,10 @@ namespace FalkenbergsRevyn.OpenAI
                 {
                     var textToBeAnswered = comment.Content;
 
+                   
                     // Lägger till specifika instruktioner för ett ödmjukt och välkomnande svar
                     var prompt = $"Kommentaren är: \"{textToBeAnswered}\". Ge ett vänligt, ödmjukt och välkomnande svar som uttrycker uppskattning, utan att lägga till onödigt innehåll. Håll svaret kort och artigt.";
 
-                    // Skicka prompten till AI
                     var completion = await client.CompleteChatAsync(prompt);
 
                     var rawResponse = completion.GetRawResponse().Content.ToString();
@@ -68,4 +68,4 @@ namespace FalkenbergsRevyn.OpenAI
             }
         }
     }
-    }
+}
