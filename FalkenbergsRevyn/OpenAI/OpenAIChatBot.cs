@@ -25,14 +25,17 @@ namespace FalkenbergsRevyn.OpenAI
             try
             {
                 // Initialize the OpenAI client with the provided model and API key
-                var client = new ChatClient( apiKey: _apiKey, model : _model );
+                var client = new ChatClient(apiKey: _apiKey, model: _model);
 
                 if (comment.Category == "Positiva")
                 {
                     var textToBeAnswered = comment.Content;
 
-                    // Assuming the method is called CompleteAsync or something similar
-                    var completion = await client.CompleteChatAsync(textToBeAnswered);
+                   
+                    // Lägger till specifika instruktioner för ett ödmjukt och välkomnande svar
+                    var prompt = $"Kommentaren är: \"{textToBeAnswered}\". Ge ett vänligt, ödmjukt och välkomnande svar som uttrycker uppskattning, utan att lägga till onödigt innehåll. Håll svaret kort och artigt.";
+
+                    var completion = await client.CompleteChatAsync(prompt);
 
                     var rawResponse = completion.GetRawResponse().Content.ToString();
 
@@ -40,13 +43,13 @@ namespace FalkenbergsRevyn.OpenAI
                     {
                         var root = doc.RootElement;
 
-                        // Navigate the JSON structure to get the first "content" field
+                        // Hämta bara det första svaret
                         var answer = root.GetProperty("choices")[0]
                                          .GetProperty("message")
                                          .GetProperty("content")
                                          .GetString();
 
-                        // Store the extracted answer in the database
+                        // Spara svaret i databasen
                         _context.Responses.Add(new Response
                         {
                             ResponseContent = answer,
@@ -60,8 +63,8 @@ namespace FalkenbergsRevyn.OpenAI
             }
             catch (Exception ex)
             {
-                // Log the exception
-                Console.WriteLine($"An error occurred while processing the comment: {ex.Message}");
+                // Logga undantaget
+                Console.WriteLine($"Ett fel uppstod när kommentaren bearbetades: {ex.Message}");
             }
         }
     }

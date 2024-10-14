@@ -18,15 +18,21 @@ namespace FalkenbergsRevyn.Controllers
         }
         public async Task<IActionResult> Index(string filter, string category)
         {
-            _logger.LogInformation($"Filter: {filter}, Category: {category}");
-            var feedbackViewModel = new FeedbackViewModel
-            {
-                PositiveComments = await GetFilteredComments("Positiva", filter, category),
-                CriticalComments = await GetFilteredComments("Kritik", filter, category),
-                Questions = await GetFilteredComments("Frågor", filter, category)
-            };
-            return View(feedbackViewModel);
-
+            //_logger.LogInformation($"Filter: {filter}, Category: {category}");
+            //var feedbackViewModel = new FeedbackViewModel
+            //{
+            //    PositiveComments = await GetFilteredComments("Positiva", filter, category),
+            //    CriticalComments = await GetFilteredComments("Kritik", filter, category),
+            //    Questions = await GetFilteredComments("Frågor", filter, category)
+            //};
+            //return View(feedbackViewModel);
+            //var feedbackViewModel = new FeedbackViewModel
+            //{
+            //    PositiveComments = await GetFilteredComments("Positiva", filter, category),
+            //    CriticalComments = await GetFilteredComments("Kritik", filter, category),
+            //    Questions = await GetFilteredComments("Frågor", filter, category)
+            //};
+            //return View(feedbackViewModel);
 
 
             //var comments = await _context.Comments.Where(c => !c.IsArchived).ToListAsync();
@@ -39,15 +45,15 @@ namespace FalkenbergsRevyn.Controllers
             //    switch (filter)
             //    {
             //        case "unanswered":
-            //            if (category == "positive")
+            //            if (category == "Positiva")
             //            {
             //                positiveComments = positiveComments.Where(c => !c.IsAnswered).ToList();
             //            }
-            //            else if (category == "critical")
+            //            else if (category == "Kritik")
             //            {
             //                criticalComments = criticalComments.Where(c => !c.IsAnswered).ToList();
             //            }
-            //            else if (category == "questions")
+            //            else if (category == "Frågor")
             //            {
             //                questions = questions.Where(c => !c.IsAnswered).ToList();
             //            }
@@ -55,15 +61,15 @@ namespace FalkenbergsRevyn.Controllers
 
             //        case "latest":
 
-            //            if (category == "positive")
+            //            if (category == "Positiva")
             //            {
             //                positiveComments = positiveComments.OrderByDescending(c => c.DatePosted).ToList();
             //            }
-            //            else if (category == "critical")
+            //            else if (category == "Kritik")
             //            {
             //                criticalComments = criticalComments.OrderByDescending(c => c.DatePosted).ToList();
             //            }
-            //            else if (category == "questions")
+            //            else if (category == "Frågor")
             //            {
             //                questions = questions.OrderByDescending(c => c.DatePosted).ToList();
             //            }
@@ -79,21 +85,40 @@ namespace FalkenbergsRevyn.Controllers
             //    Questions = questions,
             //};
             //return View(feedbackViewModel);
+            var query = _context.Comments.Where(c => !c.IsArchived);
 
-        }
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(c => c.Category == category);
+            }
 
-        public async Task<IActionResult> Index2(string filter, string category)
-        {
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query = filter switch
+                {
+                    "unanswered" => query.Where(c => !c.IsAnswered),
+                    "latest" => query.OrderByDescending(c => c.DatePosted),
+                    _ => query
+                };
+            }
+            else
+            {
+                query = query.OrderByDescending(c => c.DatePosted);
+            }
+
+            var comments = await query.ToListAsync();
 
             var feedbackViewModel = new FeedbackViewModel
             {
-                PositiveComments = await GetFilteredComments("Positiva", filter, category),
-                CriticalComments = await GetFilteredComments("Kritik", filter, category),
-                Questions = await GetFilteredComments("Frågor", filter, category)
+                PositiveComments = comments.Where(c => c.Category == "Positiva").ToList(),
+                CriticalComments = comments.Where(c => c.Category == "Kritik").ToList(),
+                Questions = comments.Where(c => c.Category == "Frågor").ToList(),
             };
-            return View(feedbackViewModel);
 
+            return View(feedbackViewModel);
         }
+
+        
             private IEnumerable<Comment> FilterComments(IEnumerable<Comment> comments, string filter)
         {
             switch (filter)
@@ -119,14 +144,14 @@ namespace FalkenbergsRevyn.Controllers
             return await query.ToListAsync();
         }
 
-      
+
         private IQueryable<Comment> ApplyFilter(IQueryable<Comment> query, string filter)
         {
             return filter switch
             {
                 "unanswered" => query.Where(c => !c.IsAnswered),
                 "latest" => query.OrderByDescending(c => c.DatePosted),
-                _ => query 
+                _ => query.OrderByDescending(c => c.DatePosted)
             };
         }
 
