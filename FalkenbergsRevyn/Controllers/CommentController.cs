@@ -72,7 +72,7 @@ namespace FalkenbergsRevyn.Controllers
                 await _openAIChatBot.ProcessComments(comment);
                 return RedirectToAction(nameof(Index));
             }
-            
+
             return View(comment);
         }
 
@@ -98,7 +98,6 @@ namespace FalkenbergsRevyn.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
         [HttpPost]
         public async Task<IActionResult> ArchiveComment(int commentId)
         {
@@ -109,7 +108,7 @@ namespace FalkenbergsRevyn.Controllers
                 comment.IsAnswered = true;
                 await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Home");
         }
     }
 }

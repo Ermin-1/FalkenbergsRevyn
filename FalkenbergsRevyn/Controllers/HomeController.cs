@@ -23,14 +23,14 @@ namespace FalkenbergsRevyn.Controllers
             //{
             //    PositiveComments = await GetFilteredComments("Positiva", filter, category),
             //    CriticalComments = await GetFilteredComments("Kritik", filter, category),
-            //    Questions = await GetFilteredComments("Frågor", filter, category)
+            //    Questions = await GetFilteredComments("FrÃ¥gor", filter, category)
             //};
             //return View(feedbackViewModel);
             //var feedbackViewModel = new FeedbackViewModel
             //{
             //    PositiveComments = await GetFilteredComments("Positiva", filter, category),
             //    CriticalComments = await GetFilteredComments("Kritik", filter, category),
-            //    Questions = await GetFilteredComments("Frågor", filter, category)
+            //    Questions = await GetFilteredComments("FrÃ¥gor", filter, category)
             //};
             //return View(feedbackViewModel);
 
@@ -39,7 +39,7 @@ namespace FalkenbergsRevyn.Controllers
 
             //var positiveComments = comments.Where(c => c.Category == "Positiva").ToList();
             //var criticalComments = comments.Where(c => c.Category == "Kritik").ToList();
-            //var questions = comments.Where(c => c.Category == "Frågor").ToList();
+            //var questions = comments.Where(c => c.Category == "FrÃ¥gor").ToList();
             //if (!string.IsNullOrEmpty(filter))
             //{
             //    switch (filter)
@@ -53,7 +53,7 @@ namespace FalkenbergsRevyn.Controllers
             //            {
             //                criticalComments = criticalComments.Where(c => !c.IsAnswered).ToList();
             //            }
-            //            else if (category == "Frågor")
+            //            else if (category == "FrÃ¥gor")
             //            {
             //                questions = questions.Where(c => !c.IsAnswered).ToList();
             //            }
@@ -69,7 +69,7 @@ namespace FalkenbergsRevyn.Controllers
             //            {
             //                criticalComments = criticalComments.OrderByDescending(c => c.DatePosted).ToList();
             //            }
-            //            else if (category == "Frågor")
+            //            else if (category == "FrÃ¥gor")
             //            {
             //                questions = questions.OrderByDescending(c => c.DatePosted).ToList();
             //            }
@@ -112,7 +112,7 @@ namespace FalkenbergsRevyn.Controllers
             {
                 PositiveComments = comments.Where(c => c.Category == "Positiva").ToList(),
                 CriticalComments = comments.Where(c => c.Category == "Kritik").ToList(),
-                Questions = comments.Where(c => c.Category == "Frågor").ToList(),
+                Questions = comments.Where(c => c.Category == "FrÃ¥gor").ToList(),
             };
 
             return View(feedbackViewModel);
