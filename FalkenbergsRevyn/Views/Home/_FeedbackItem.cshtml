@@ -6,12 +6,12 @@
     <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#replyModal-@Model.CommentId">Se genererat svar</button>
     <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#hideModal-@Model.CommentId">Dölj från listan</button>
     <button type="button" class="btn small" data-bs-toggle="modal" data-bs-target="#showModal-@Model.CommentId">Show comment</button>
-    
+
 
     @await Html.PartialAsync("ModalBase", new ModalViewModel
 {
     ModalId = "replyModal-" + Model.CommentId,
-    Title = "Genererat svar" +@Model.CommentId,
+    Title = "Genererat svar" + @Model.CommentId,
     Body = new HtmlString(Model.Responses?.FirstOrDefault()?.ResponseContent ?? "Inget svar tillgängligt"),
     FooterButtons = new List<IHtmlContent>
     {
