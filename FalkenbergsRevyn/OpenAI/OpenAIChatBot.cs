@@ -1,13 +1,14 @@
 ﻿using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
 using Microsoft.AspNetCore.Mvc;
-using OpenAI.Chat;
+using NuGet.Protocol;
+using OpenAI.Chat;  // Ensure this is the correct namespace for the chat functionality
+using System.Text.Json;
 
 namespace FalkenbergsRevyn.OpenAI
 {
     public class OpenAIChatBot
     {
-
         private readonly AppDbContext _context;
         private readonly string _apiKey;
         private readonly string _model;
@@ -23,30 +24,45 @@ namespace FalkenbergsRevyn.OpenAI
         {
             try
             {
-                ChatClient client = new(model: _model, apiKey: _apiKey);
+                // Initialize the OpenAI client with the provided model and API key
+                var client = new ChatClient( apiKey: _apiKey, model : _model );
 
                 if (comment.Category == "Positiva")
                 {
-                    var textToBeAnswered = string.Join("", comment.Content);
+                    var textToBeAnswered = comment.Content;
 
-                    // Send the input to ChatGPT and retrieve the response
+                    // Assuming the method is called CompleteAsync or something similar
                     var completion = await client.CompleteChatAsync(textToBeAnswered);
 
-                    // Process the response and store the answers in the database
-                    var answers = completion.ToString();
+                    var rawResponse = completion.GetRawResponse().Content.ToString();
 
-                    // Store the answer in the database
-                    _context.Responses.Add(new Response { ResponseContent = answers, DateResponded = DateTime.Now, CommentId = comment.CommentId });
+                    using (JsonDocument doc = JsonDocument.Parse(rawResponse))
+                    {
+                        var root = doc.RootElement;
 
-                    await _context.SaveChangesAsync();
+                        // Navigate the JSON structure to get the first "content" field
+                        var answer = root.GetProperty("choices")[0]
+                                         .GetProperty("message")
+                                         .GetProperty("content")
+                                         .GetString();
+
+                        // Store the extracted answer in the database
+                        _context.Responses.Add(new Response
+                        {
+                            ResponseContent = answer,
+                            DateResponded = DateTime.Now,
+                            CommentId = comment.CommentId
+                        });
+
+                        await _context.SaveChangesAsync();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 // Log the exception
-                Console.WriteLine($"An error occurred while processing comment: {ex.Message}");
+                Console.WriteLine($"An error occurred while processing the comment: {ex.Message}");
             }
         }
-
     }
 }
