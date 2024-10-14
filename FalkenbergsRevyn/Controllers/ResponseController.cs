@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FalkenbergsRevyn.Controllers
 {
@@ -20,6 +21,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         //GET: Response
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Index(string filter)
         {
             var responsesQuery = _context.Responses.Include(r => r.Comment).AsQueryable();
@@ -45,6 +47,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         //GET: Response/Details/5
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Details(int? id)
 
         {
@@ -67,12 +70,14 @@ namespace FalkenbergsRevyn.Controllers
 
 
         //GET: Response/Create
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Create()
         {
             return View();
         }
 
         //POST: Response/Create
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ResponseId,ResponseContent,DateResponded,CommentId")] Response response)
@@ -88,6 +93,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         // GET: Response/Edit/5
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,6 +113,7 @@ namespace FalkenbergsRevyn.Controllers
 
 
         // POST: Responses/Edit/5
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ResponseId,ResponseContent,DateResponded,CommentId")] Response response)
@@ -155,6 +162,7 @@ namespace FalkenbergsRevyn.Controllers
 
 
         //GET: Response/Delete/5
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -174,6 +182,7 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         //POST: Response/Delete/5
+        [Authorize(Roles = "Admin,User")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

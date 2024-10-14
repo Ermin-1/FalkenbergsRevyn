@@ -1,6 +1,7 @@
 using FalkenbergsRevyn.Data;
 using FalkenbergsRevyn.Models;
 using FalkenbergsRevyn.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -16,6 +17,7 @@ namespace FalkenbergsRevyn.Controllers
             _logger = logger;
             _context = context;
         }
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Index(string filter, string category)
         {
 
@@ -44,6 +46,7 @@ namespace FalkenbergsRevyn.Controllers
                 query = query.OrderByDescending(c => c.DatePosted);
             }
 
+
             var comments = await query.ToListAsync();
 
             var feedbackViewModel = new FeedbackViewModel
@@ -57,6 +60,8 @@ namespace FalkenbergsRevyn.Controllers
         }
 
 
+        [Authorize(Roles = "Admin,User")]
+
         private IEnumerable<Comment> FilterComments(IEnumerable<Comment> comments, string filter)
         {
             switch (filter)
@@ -69,6 +74,8 @@ namespace FalkenbergsRevyn.Controllers
                     return comments.ToList();
             }
         }
+
+        [Authorize(Roles = "Admin,User")]
         private async Task<List<Comment>> GetFilteredComments(string categoryName, string filter, string requestedCategory)
         {
             var query = _context.Comments.Include(c => c.Responses)
@@ -82,7 +89,7 @@ namespace FalkenbergsRevyn.Controllers
             return await query.ToListAsync();
         }
 
-
+        [Authorize(Roles = "Admin,User")]
         private IQueryable<Comment> ApplyFilter(IQueryable<Comment> query, string filter)
         {
             return filter switch
@@ -93,12 +100,13 @@ namespace FalkenbergsRevyn.Controllers
             };
         }
 
-
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Privacy()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,User")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
