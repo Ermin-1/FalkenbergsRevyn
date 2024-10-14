@@ -22,10 +22,10 @@ namespace FalkenbergsRevyn
             // Razor pages
             builder.Services.AddRazorPages();
 
-            /*builder.Services.AddTransient<OpenAIChatBot>(_ => new OpenAIChatBot(
+            builder.Services.AddTransient<OpenAIChatBot>(_ => new OpenAIChatBot(
                 _.GetRequiredService<AppDbContext>(),
                 _.GetRequiredService<IConfiguration>()
-                ));*/
+                ));
 
             // Configure Identity and add roles
             builder.Services.AddDefaultIdentity<IdentityUser>()
