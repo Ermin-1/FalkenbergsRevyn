@@ -1,16 +1,16 @@
-/* Grundläggande layout */
+/* GrundlÃ¤ggande layout */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ännu ljusare nyanser av lila */
+    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ã„nnu ljusare nyanser av lila */
     background-size: cover;
-    background-attachment: fixed; /* Fäster bakgrunden för bättre effekt */
+    background-attachment: fixed; /* FÃ¤ster bakgrunden fÃ¶r bÃ¤ttre effekt */
     color: #333;
 }
 
-/* Specifika stilar för login-sidan */
+/* Specifika stilar fÃ¶r login-sidan */
 .login-page {
     display: flex;
     justify-content: center;
@@ -40,8 +40,14 @@ html, body {
 }
 
 .form-floating label {
-    color: #6a1b9a; /* Lila färg på label */
+    color: #6a1b9a; /* Lila fÃ¤rg pÃ¥ label */
 }
+body {
+    margin-bottom: 60px;
+    background-color: #343a40; /* Bootstrap dark gray */
+    color: #f8f9fa; /* Light text color for readability */
+    margin: 0;
+    padding: 0;
 
 .btn-primary {
     background-color: #8e24aa;
@@ -56,27 +62,28 @@ html, body {
 
 /* Footer-stilar */
 footer {
-    background-color: #f3e5f5; /* Ljus lila bakgrund för att matcha sidan */
+    background-color: #f3e5f5; /* Ljus lila bakgrund fÃ¶r att matcha sidan */
     border-top: 1px solid #ab47bc; /* Lila kant */
     padding: 20px 0; /* Ger lite extra utrymme i fotern */
     color: #6a1b9a; /* Mjuk lila text */
     font-size: 14px;
+
 }
 
     footer a {
-        color: #8e24aa; /* Färg på länken */
+        color: #8e24aa; /* FÃ¤rg pÃ¥ lÃ¤nken */
         text-decoration: none; /* Tar bort standard understrykning */
     }
 
         footer a:hover {
-            color: #6a1b9a; /* Mörkare lila vid hover */
-            text-decoration: underline; /* Understrykning vid hover för bättre synlighet */
+            color: #6a1b9a; /* MÃ¶rkare lila vid hover */
+            text-decoration: underline; /* Understrykning vid hover fÃ¶r bÃ¤ttre synlighet */
         }
 
     footer .container {
         display: flex;
         justify-content: center; /* Centrera texten horisontellt */
-        align-items: center; /* Justerar innehållet vertikalt i mitten */
+        align-items: center; /* Justerar innehÃ¥llet vertikalt i mitten */
     }
 
         footer .container p {
@@ -170,22 +177,22 @@ body {
         padding: 5px 8px;
     }
 
-/* Runda hörn på bilder */
+/* Runda hÃ¶rn pÃ¥ bilder */
 img {
-    border-radius: 10px; /* Rundar hörn på bilder */
-}/* Grundläggande layout */
+    border-radius: 10px; /* Rundar hÃ¶rn pÃ¥ bilder */
+}/* GrundlÃ¤ggande layout */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ännu ljusare nyanser av lila */
+    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ã„nnu ljusare nyanser av lila */
     background-size: cover;
-    background-attachment: fixed; /* Fäster bakgrunden för bättre effekt */
+    background-attachment: fixed; /* FÃ¤ster bakgrunden fÃ¶r bÃ¤ttre effekt */
     color: #333;
 }
 
-/* Specifika stilar för login-sidan */
+/* Specifika stilar fÃ¶r login-sidan */
 .login-page {
     display: flex;
     justify-content: center;
@@ -215,7 +222,7 @@ html, body {
 }
 
 .form-floating label {
-    color: #6a1b9a; /* Lila färg på label */
+    color: #6a1b9a; /* Lila fÃ¤rg pÃ¥ label */
 }
 
 .btn-primary {
@@ -231,7 +238,7 @@ html, body {
 
 /* Footer-stilar */
 footer {
-    background-color: #f3e5f5; /* Ljus lila bakgrund för att matcha sidan */
+    background-color: #f3e5f5; /* Ljus lila bakgrund fÃ¶r att matcha sidan */
     border-top: 1px solid #ab47bc; /* Lila kant */
     padding: 20px 0; /* Ger lite extra utrymme i fotern */
     color: #6a1b9a; /* Mjuk lila text */
@@ -239,19 +246,19 @@ footer {
 }
 
     footer a {
-        color: #8e24aa; /* Färg på länken */
+        color: #8e24aa; /* FÃ¤rg pÃ¥ lÃ¤nken */
         text-decoration: none; /* Tar bort standard understrykning */
     }
 
         footer a:hover {
-            color: #6a1b9a; /* Mörkare lila vid hover */
-            text-decoration: underline; /* Understrykning vid hover för bättre synlighet */
+            color: #6a1b9a; /* MÃ¶rkare lila vid hover */
+            text-decoration: underline; /* Understrykning vid hover fÃ¶r bÃ¤ttre synlighet */
         }
 
     footer .container {
         display: flex;
         justify-content: center; /* Centrera texten horisontellt */
-        align-items: center; /* Justerar innehållet vertikalt i mitten */
+        align-items: center; /* Justerar innehÃ¥llet vertikalt i mitten */
     }
 
         footer .container p {
@@ -345,7 +352,7 @@ body {
         padding: 5px 8px;
     }
 
-/* Runda hörn på bilder */
+/* Runda hÃ¶rn pÃ¥ bilder */
 img {
-    border-radius: 10px; /* Rundar hörn på bilder */
+    border-radius: 10px; /* Rundar hÃ¶rn pÃ¥ bilder */
 }

@@ -1,12 +1,24 @@
-﻿@model string
+﻿@model (string Category, string CurrentFilter)
 
 <div class="dropdown mb-3">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Filtrera kommentarer!!!!
+    @{
+        string buttonLabel = Model.CurrentFilter switch
+        {
+            "latest" => "Senaste",
+            "oldest" => "Älsta",
+            "unanswered" => "Olästa",
+            _ => "Filtrera kommentarer"
+        };
+    }
+    <button class="btn-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        @buttonLabel
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category = Model })">Senaste</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category = Model })">Olästa</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", new { category = Model })">Alla</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest",  category = Model.Category})">Senaste</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest",  category = Model.Category})">Älsta</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered",  category = Model.Category})">Olästa</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new {  category = Model.Category })">Alla</a></li>
     </ul>
 </div>
+<p>Debug: Current Filter = @Model.CurrentFilter</p>
+<p>Debug: Current Category = @Model.Category</p>
