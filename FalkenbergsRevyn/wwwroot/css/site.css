@@ -129,14 +129,15 @@ body {
     flex: 0 0 30%;
 }
 
-.category-btn {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 10px 20px;
+/*.category-btn {
+    border-bottom: 5px dotted gold;
+    border-top: 5px dotted gold;
+    padding: 5px 10px;
     margin-bottom: 20px;
-    border-radius: 5px;
-}
+    color: white;
+    font-weight: 550;
+    letter-spacing: 2px;
+}*/
 
 .modalbtn {
     background-color: blue;
@@ -304,14 +305,14 @@ body {
     flex: 0 0 30%;
 }
 
-.category-btn {
+/*.category-btn {
     background-color: white;
     color: black;
     border: none;
     padding: 10px 20px;
     margin-bottom: 20px;
     border-radius: 5px;
-}
+}*/
 
 .modalbtn {
     background-color: blue;
