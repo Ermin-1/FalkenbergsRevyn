@@ -4,32 +4,9 @@
     ViewData["Title"] = "Response List";
 }
 
-<h2>Responses</h2>
-
-
-<!-- Knappar för att filtrera -->
-<div class="btn-group mb-3" role="group">
-    <a href="@Url.Action("Index", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
-    <a href="@Url.Action("Index", new { filter = "unanswered" })" class="btn btn-secondary">Unanswered Comments</a>
-    <a href="@Url.Action("Index")" class="btn btn-secondary">All Comments</a>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Related Comment</th>
-            <th>Response Content</th>
-            <th>Date Responded</th>
-            <th>Actions</th>
-        </tr>@model IEnumerable<FalkenbergsRevyn.Models.Response>
-
-@{
-    ViewData["Title"] = "Response List";
-}
-
 <!-- Dark background wrapper with full viewport height -->
 <div class="bg-dark text-light min-vh-100 d-flex flex-column">
-    <div class="container mt-5" flex-grow-1 pb-5>
+    <div class="container mt-5 flex-grow-1 pb-5">
         <h2 class="text-center text-light">Responses</h2>
 
         <div class="d-flex justify-content-end mb-3">
@@ -63,7 +40,8 @@
                         <td>
                             <a class="btn btn-sm btn-warning" asp-action="Details" asp-route-id="@item.ResponseId" title="Details"><i class="fa-solid fa-magnifying-glass-plus"></i></a>
                             <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.ResponseId" title="Edit"><i class="fa-solid fa-edit"></i></a>
-                            <form asp-action="Delete" asp-route-id="@item.ResponseId" method="post" title="Delete" style="display:inline-block;">
+                            <form asp-action="Delete" asp-route-id="@item.ResponseId" method="post" style="display:inline-block;">
+                                @Html.AntiForgeryToken()
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this response?')">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </button>
@@ -75,24 +53,3 @@
         </table>
     </div>
 </div>
-
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>@item.Comment.Content</td>
-                <td>@item.ResponseContent</td>
-                <td>@item.DateResponded</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.ResponseId">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@item.ResponseId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ResponseId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<a asp-action="Create">Create New Response</a>
