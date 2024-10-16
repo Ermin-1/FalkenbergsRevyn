@@ -1,4 +1,4 @@
-﻿@model (string Category, string CurrentFilter)
+﻿@model FeedbackCategoryViewModel
 
 <div class="dropdown mb-3">
     @{
@@ -14,11 +14,9 @@
         @buttonLabel
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest",  category = Model.Category})">Senaste</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest",  category = Model.Category})">Älsta</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered",  category = Model.Category})">Olästa</a></li>
-        <li><a class="dropdown-item" href="@Url.Action("Index", new {  category = Model.Category })">Alla</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category = Model.CategoryType })">Senaste</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest", category = Model.CategoryType })">Älsta</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category = Model.CategoryType })">Olästa</a></li>
+        <li><a class="dropdown-item" href="@Url.Action("Index", new { category = Model.CategoryType })">Alla</a></li>
     </ul>
 </div>
-<p>Debug: Current Filter = @Model.CurrentFilter</p>
-<p>Debug: Current Category = @Model.Category</p>
