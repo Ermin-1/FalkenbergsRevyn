@@ -1,9 +1,4 @@
-﻿@using Microsoft.AspNetCore.Html
-@model FeedbackViewModel
-
-@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model FeedbackViewModel
 
 @if (Model == null)
 {
@@ -12,30 +7,19 @@
 else
 {
     <div class="container">
-        @* @await Html.PartialAsync("_Header") *@
-       
         <div class="feedback-section">
-            @*  Positive *@
+
+            <!-- Positiva Feedback -->
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <p class="category-btn">Positiva</p>
-                   @*  @await Html.PartialAsync("_FilterDropdown", ("Positiva", Model.CurrentFilter)) *@
-                    <div class="dropdown mb-3">
-                        <button class="btn-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filtrera kommentarer
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category="Positiva",num = 5})">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="Positiva", num = 5 })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest", category="Positiva", num=5 })">Älsta</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category ="Positiva", num=20})">Alla</a></li>
-                    @*         <li><a class="dropdown-item" asp-action="Index" asp-route-filter="latest" asp-route-category="Positiva" asp-route-num="5">Senaste</a></li>
-                            <li><a class="dropdown-item" asp-action="Index" asp-route-filter="unanswered" asp-route-category="Positiva" asp-route-num="5">Olästa</a></li>
-                            <li><a class="dropdown-item" asp-action="Index" asp-route-filter="oldest" asp-route-category="Positiva" asp-route-num="5">Älsta</a></li>
-                            <li><a class="dropdown-item" asp-action="Index" asp-route-category="Positiva" asp-route-num="20">Alla</a></li> *@
-                        </ul>
-                    </div>
-                    
+                    @await Html.PartialAsync("_FilterDropdown", new FeedbackCategoryViewModel
+                       {
+                           Title = "Positiva",
+                           CurrentFilter = Model.CurrentFilterPositiva,
+                           CategoryType = "Positiva",
+                           Comments = Model.PositiveComments
+                       })
                 </div>
                 <div class="feedback-list">
                     @foreach (var comment in Model.PositiveComments)
@@ -43,32 +27,24 @@ else
                         <div class="feedback-item">
                             <p class="ms-2">@comment.Content</p>
                             <p class="genererat">@comment.Responses?.FirstOrDefault()?.ResponseContent</p>
-                            @* <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId">Se genererat svar</button> *@
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
-                           @*  reply model *@
-                            @await Html.PartialAsync("_ReplyModal", comment)
-                          @*   Hide Modal *@
                             @await Html.PartialAsync("_HideModal", comment)
                         </div>
                     }
                 </div>
             </div>
-          @*   Kritik! *@
+
+            <!-- Kritik Feedback -->
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <p class="category-btn">Kritik</p>
-                   @*  @await Html.PartialAsync("_FilterDropdown", ("Kritik", Model.CurrentFilter)) *@
-                    <div class="dropdown mb-3">
-                        <button class="btn-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filtrera kommentarer
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category="Kritik", num=5})">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="Kritik",num=5 })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest", category="Kritik",num=5 })">Älsta</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category ="Kritik"})">Alla</a></li>
-                        </ul>
-                    </div>
+                    @await Html.PartialAsync("_FilterDropdown", new FeedbackCategoryViewModel
+                       {
+                           Title = "Kritik",
+                           CurrentFilter = Model.CurrentFilterKritik,
+                           CategoryType = "Kritik",
+                           Comments = Model.CriticalComments
+                       })
                 </div>
                 <div class="feedback-list">
                     @foreach (var comment in Model.CriticalComments)
@@ -77,30 +53,24 @@ else
                             <p>@comment.Content</p>
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#answerModal-@comment.CommentId">Svara</button>
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
-                            @* input modal *@
                             @await Html.PartialAsync("_AnswerModal", comment)
-                            @* hide comments modal *@
                             @await Html.PartialAsync("_HideModal", comment)
                         </div>
                     }
                 </div>
             </div>
-            @*  FRÅGOR! *@
+
+            <!-- Frågor Feedback -->
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <p class="category-btn">Frågor</p>
-                   @*  @await Html.PartialAsync("_FilterDropdown", ("Frågor", Model.CurrentFilter)) *@
-                    <div class="dropdown mb-3">
-                        <button class="btn-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filtrera kommentarer
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "latest", category="Frågor", num=1 })">Senaste</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "unanswered", category="Frågor",num=1 })">Olästa</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new { filter = "oldest", category="Frågor", num=1 })">Älsta</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Index", new {category ="Frågor"})">Alla</a></li>
-                        </ul>
-                    </div>
+                    @await Html.PartialAsync("_FilterDropdown", new FeedbackCategoryViewModel
+                       {
+                           Title = "Frågor",
+                           CurrentFilter = Model.CurrentFilterFrågor,
+                           CategoryType = "Frågor",
+                           Comments = Model.Questions
+                       })
                 </div>
                 <div class="feedback-list">
                     @foreach (var comment in Model.Questions)
@@ -109,9 +79,7 @@ else
                             <p>@comment.Content</p>
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#answerModal-@comment.CommentId">Svara</button>
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
-                            @* input modal *@
                             @await Html.PartialAsync("_AnswerModal", comment)
-                            @* hide comments modal *@
                             @await Html.PartialAsync("_HideModal", comment)
                         </div>
                     }
@@ -120,4 +88,3 @@ else
         </div>
     </div>
 }
-@await Html.PartialAsync("_Styles")
