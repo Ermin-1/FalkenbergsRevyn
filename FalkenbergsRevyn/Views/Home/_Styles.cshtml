@@ -36,6 +36,21 @@
             border-radius: 10px;
             margin: 0 15px;
             flex: 0 0 30%;
+            max-height: 100vh; 
+            overflow-y: auto; 
+        }
+
+        .feedback-category::-webkit-scrollbar {
+            width: 10px; 
+        }
+
+        .feedback-category::-webkit-scrollbar-thumb {
+            background-color: #444; /*  deeppink */
+            border-radius: 3px; 
+        }
+
+        .feedback-category::-webkit-scrollbar-track {
+            background-color: #333;
         }
 
         .category-btn {
@@ -66,15 +81,38 @@
             border-radius: 5px;
         }
 
+    .genererat{
+        background-color: #f5f5f5;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
+        margin:5px;
+    }
+
+    .answer {
+        background-color: #f5f5f5;
+        color: black;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    .bg-pink {
+        background-color: pink;
+    }
+
+    .bg-white {
+        background-color: white;
+    }
         .btn-small {
             font-size: 12px;
             padding: 5px 8px;
             background-color: white;
             color: black;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 15px;
             margin-top: 10px;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
             transition: background-color 0.3s ease;
             outline: none;
@@ -117,8 +155,17 @@
             background: linear-gradient(#F7F8FA, #E3EAFA)
         }
 
+    textarea {
+        font-size: 1.25rem;
+    }
+
         textarea:focus {
             outline: none;
+        }
+
+        textarea::placeholder {
+            font-size: 1.25rem;
+            font-family: sans-serif;
         }
 
         @@media (max-width: 768px) {
