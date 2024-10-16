@@ -8,18 +8,32 @@ else
 {
     <div class="container">
         <div class="feedback-section">
+            <!-- Filter Dropdown for All Categories -->
+            <div class="dropdown mb-3">
+                @{
+                    string buttonLabel = Model.CurrentFilter switch
+                    {
+                        "latest" => "Senaste",
+                        "oldest" => "Älsta",
+                        "unanswered" => "Olästa",
+                        _ => "Filtrera kommentarer"
+                    };
+                }
+                <button class="btn-menu dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    @buttonLabel
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="/home/index?filter=latest">Senaste</a></li>
+                    <li><a class="dropdown-item" href="/home/index?filter=oldest">Älsta</a></li>
+                    <li><a class="dropdown-item" href="/home/index?filter=unanswered">Olästa</a></li>
+                    <li><a class="dropdown-item" href="/home/index">Alla</a></li>
+                </ul>
+            </div>
 
             <!-- Positiva Feedback -->
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <p class="category-btn">Positiva</p>
-                    @await Html.PartialAsync("_FilterDropdown", new FeedbackCategoryViewModel
-                       {
-                           Title = "Positiva",
-                           CurrentFilter = Model.CurrentFilterPositiva,
-                           CategoryType = "Positiva",
-                           Comments = Model.PositiveComments
-                       })
                 </div>
                 <div class="feedback-list">
                     @foreach (var comment in Model.PositiveComments)
@@ -38,13 +52,6 @@ else
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <p class="category-btn">Kritik</p>
-                    @await Html.PartialAsync("_FilterDropdown", new FeedbackCategoryViewModel
-                       {
-                           Title = "Kritik",
-                           CurrentFilter = Model.CurrentFilterKritik,
-                           CategoryType = "Kritik",
-                           Comments = Model.CriticalComments
-                       })
                 </div>
                 <div class="feedback-list">
                     @foreach (var comment in Model.CriticalComments)
@@ -70,13 +77,6 @@ else
             <div class="feedback-category">
                 <div class="d-flex justify-content-between">
                     <p class="category-btn">Frågor</p>
-                    @await Html.PartialAsync("_FilterDropdown", new FeedbackCategoryViewModel
-                       {
-                           Title = "Frågor",
-                           CurrentFilter = Model.CurrentFilterFrågor,
-                           CategoryType = "Frågor",
-                           Comments = Model.Questions
-                       })
                 </div>
                 <div class="feedback-list">
                     @foreach (var comment in Model.Questions)
