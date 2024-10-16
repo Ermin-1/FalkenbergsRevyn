@@ -42,7 +42,8 @@ else
                     {
                         <div class="feedback-item">
                             <p class="ms-2">@comment.Content</p>
-                            <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId">Se genererat svar</button>
+                            <p class="genererat">@comment.Responses?.FirstOrDefault()?.ResponseContent</p>
+                            @* <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#replyModal-@comment.CommentId">Se genererat svar</button> *@
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
                            @*  reply model *@
                             @await Html.PartialAsync("_ReplyModal", comment)
