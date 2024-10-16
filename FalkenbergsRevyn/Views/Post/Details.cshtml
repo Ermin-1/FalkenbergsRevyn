@@ -10,7 +10,7 @@
     <ul>
         @foreach (var comment in Model.Comments)
         {
-            <li>@comment.Content - Posted on: @comment.DatePosted</li>
+            <li>@comment.Content - Posted on: @Html.DisplayFor(modelItem => comment.DatePosted)</li>
         }
     </ul>
 }
