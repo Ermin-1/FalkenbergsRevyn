@@ -4,18 +4,18 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header text-black border-0">
-                <h1>Genererat svar!!!!!</h1>
+              @*   <h3 class="mt-4 ms-3">Genererat svar:</h3> *@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body text-black border-0">
-                <h4>@(string.IsNullOrEmpty(Model.Responses?.FirstOrDefault()?.ResponseContent) ? "Inget svar tillgängligt" : Model.Responses?.FirstOrDefault()?.ResponseContent)</h4>
+            <div class="modal-body text-black border-0 mx-4">
+                <h5 class="text-left">@(string.IsNullOrEmpty(Model.Responses?.FirstOrDefault()?.ResponseContent) ? "Inget svar tillgängligt" : Model.Responses?.FirstOrDefault()?.ResponseContent)</h5>
             </div>
             <div class="modal-footer border-0">
                 <form asp-action="ArchiveComment" asp-controller="Comment" method="post" style="display:inline;">
                     <input type="hidden" name="commentId" value="@Model.CommentId" />
-                    <button type="submit" class="btn small">Dölj från listan.</button>
+                    <button type="submit" class="btn-modal">Dölj från listan.</button>
                 </form>
-                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Stäng</button>
+                <button type='button' class='btn-modal' data-bs-dismiss='modal'>Stäng</button>
             </div>
         </div>
     </div>

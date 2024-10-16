@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace FalkenbergsRevyn.Controllers
 {
@@ -18,47 +19,64 @@ namespace FalkenbergsRevyn.Controllers
             _context = context;
         }
         [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> Index(string filter, string category)
+        public async Task<IActionResult> Index(string filter, string category, int? num)
         {
-
-            var query = _context.Comments.Include(c => c.Responses).Where(c => !c.IsArchived);
-
+            //var query = _context.Comments.Include(c => c.Responses).AsQueryable();
+            //if (!string.IsNullOrEmpty(category))
+            //{
+            //    query = query.Where(c => c.Category == category);
+            //}
+            //query = filter switch
+            //{
+            //    "unanswered" => query.Where(c => !c.IsAnswered),
+            //    "latest" => query.OrderByDescending(c => c.DatePosted),
+            //    "oldest" => query.OrderBy(c => c.DatePosted),
+            //    _ => query.OrderByDescending(c => c.DatePosted)
+            //};
+            //var comments = await query.Take(num).ToListAsync();
+            //var feedbackViewModel = new FeedbackViewModel
+            //{
+            //    PositiveComments = comments.Where(c => c.Category == "Positiva").ToList(),
+            //    CriticalComments = comments.Where(c => c.Category == "Kritik").ToList(),
+            //    Questions = comments.Where(c => c.Category == "Frågor").ToList(),
+            //    CurrentFilter = filter,
+            //    CurrentCategory = category
+            //};
+            //return View(feedbackViewModel);
+            int displayCount = num ?? 5;
+            var query = _context.Comments.Include(c => c.Responses).AsQueryable();
+            switch (filter)
+            {
+                case "unanswered":
+                    query = query.Where(r => !r.IsAnswered);
+                    break;
+                case "latest":
+                    query = query.OrderByDescending(r => r.DatePosted);
+                    break;
+                case "oldest":
+                    query = query.OrderBy(r => r.DatePosted);
+                    break;
+                default:
+                    query = query.OrderByDescending(r => r.DatePosted);
+                    break;
+            }
             if (!string.IsNullOrEmpty(category))
             {
                 query = query.Where(c => c.Category == category);
             }
-
-            if (!string.IsNullOrEmpty(filter))
-            {
-
-                query = filter switch
-                {
-                    "unanswered" => query.Where(c => !c.IsAnswered),
-                    "latest" => query.OrderByDescending(c => c.DatePosted),
-                    "oldest" => query.OrderBy(c => c.DatePosted),
-                    "all" => query, 
-                    _ => query
-                };
-            }
-
-            if (string.IsNullOrEmpty(filter))
-            {
-                query = query.OrderByDescending(c => c.DatePosted);
-            }
-
-
-            var comments = await query.ToListAsync();
-
             var feedbackViewModel = new FeedbackViewModel
             {
-                PositiveComments = comments.Where(c => c.Category == "Positiva").ToList(),
-                CriticalComments = comments.Where(c => c.Category == "Kritik").ToList(),
-                Questions = comments.Where(c => c.Category == "Frågor").ToList(),
-                
+                PositiveComments = query.Where(c => c.Category == "Positiva").Take(displayCount).ToList(),
+                CriticalComments = query.Where(c => c.Category == "Kritik").Take(displayCount).ToList(),
+                Questions = query.Where(c => c.Category == "Frågor").Take(displayCount).ToList(),
+                CurrentFilter = filter,
+                CurrentCategory = category,
+                CommentNumber = displayCount
             };
             return View(feedbackViewModel);
-        }
 
+
+        }
 
         [Authorize(Roles = "Admin,User")]
 
@@ -90,13 +108,14 @@ namespace FalkenbergsRevyn.Controllers
         }
 
         [Authorize(Roles = "Admin,User")]
-        private IQueryable<Comment> ApplyFilter(IQueryable<Comment> query, string filter)
+        private IQueryable<Comment> ApplyFilter(IQueryable<Comment> comments, string filter)
         {
             return filter switch
             {
-                "unanswered" => query.Where(c => !c.IsAnswered),
-                "latest" => query.OrderByDescending(c => c.DatePosted),
-                _ => query.OrderByDescending(c => c.DatePosted)
+                "unanswered" => comments.Where(c => !c.IsAnswered),
+                "latest" => comments.OrderByDescending(c => c.DatePosted),
+                "oldest" => comments.OrderBy(c => c.DatePosted),
+                _ => comments.OrderByDescending(c => c.DatePosted)
             };
         }
 
