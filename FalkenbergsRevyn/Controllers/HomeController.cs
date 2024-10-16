@@ -21,44 +21,43 @@ namespace FalkenbergsRevyn.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Index(string filter, string category, int? num)
         {
-            int displayCount = num ?? 5; // Default display count
+            int displayCount = num ?? 5; // Default number of comments to display
             var query = _context.Comments.Include(c => c.Responses).AsQueryable();
 
-            // Apply category filtering if provided
+            // Check if the category is provided
             if (!string.IsNullOrEmpty(category))
             {
                 query = query.Where(c => c.Category == category);
             }
 
-            // Apply filter sorting based on the selected filter
+            // Apply filtering logic based on the selected filter
             switch (filter)
             {
                 case "unanswered":
-                    query = query.Where(r => !r.IsAnswered);
+                    query = query.Where(c => !c.IsAnswered);
                     break;
                 case "latest":
-                    query = query.OrderByDescending(r => r.DatePosted);
+                    query = query.OrderByDescending(c => c.DatePosted);
                     break;
                 case "oldest":
-                    query = query.OrderBy(r => r.DatePosted);
+                    query = query.OrderBy(c => c.DatePosted);
+                    break;
+                case "all": // Make sure to handle the case for "all" to show all comments
                     break;
                 default:
-                    query = query.OrderByDescending(r => r.DatePosted);
+                    // No filtering needed, show all comments
                     break;
             }
 
-            // Execute the query and retrieve all comments for the specified category
-            var filteredComments = await query.ToListAsync();
+            // Fetch comments based on the applied filters and categories
+            var comments = await query.ToListAsync();
 
-            // Populate the FeedbackViewModel with categorized comments
             var feedbackViewModel = new FeedbackViewModel
             {
-                PositiveComments = filteredComments.Where(c => c.Category == "Positiva").Take(displayCount).ToList(),
-                CriticalComments = filteredComments.Where(c => c.Category == "Kritik").Take(displayCount).ToList(),
-                Questions = filteredComments.Where(c => c.Category == "Frågor").Take(displayCount).ToList(),
-                CurrentFilterPositiva = filter, // Set current filter for Positive comments
-                CurrentFilterKritik = filter, // Set current filter for Critical comments
-                CurrentFilterFrågor = filter, // Set current filter for Questions
+                PositiveComments = comments.Where(c => c.Category == "Positiva").ToList(),
+                CriticalComments = comments.Where(c => c.Category == "Kritik").ToList(),
+                Questions = comments.Where(c => c.Category == "Frågor").ToList(),
+                CurrentFilter = filter,
                 CurrentCategory = category,
                 CommentNumber = displayCount
             };
