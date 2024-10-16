@@ -36,7 +36,7 @@
                     <tr>
                         <td>@item.Comment.Content</td>
                         <td>@item.ResponseContent</td>
-                        <td>@item.DateResponded</td>
+                        <td>@item.DateResponded.ToString("dd-MMM-yyyy HH:mm")</td>
                         <td>
                             <a class="btn btn-sm btn-warning" asp-action="Details" asp-route-id="@item.ResponseId" title="Details"><i class="fa-solid fa-magnifying-glass-plus"></i></a>
                             <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.ResponseId" title="Edit"><i class="fa-solid fa-edit"></i></a>
