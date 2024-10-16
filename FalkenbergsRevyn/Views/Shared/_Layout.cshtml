@@ -36,7 +36,7 @@
                         @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" style="text-decoration:underline solid 1px; text-underline-offset:2.5px; font-size:22.5px; align-content:center; text-align:center;">Home</a>
                             </li>
                         }
 
@@ -44,28 +44,25 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" style="text-decoration:underline solid 1px; text-underline-offset:2.5px; font-size:22.5px; align-content:center; text-align:center;">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Response" asp-action="Index" style="text-decoration:underline solid 1px; text-underline-offset:2.5px; font-size:22.5px; align-content:center; text-align:center;">Responses</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Response" asp-action="Index">Responses</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Comment" asp-action="Index" style="text-decoration:underline solid 1px; text-underline-offset:2.5px; font-size:22.5px; align-content:center; text-align:center;">Comments</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Comment" asp-action="Index">Comments</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index">Posts</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Post" asp-action="Index" style="text-decoration:underline solid 1px; text-underline-offset:2.5px; font-size:22.5px; align-content:center; text-align:center;">Posts</a>
                             </li>
                         }
                     </ul>
                     <ul class="navbar-nav" style="padding-right:25px;">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://www.facebook.com/falkenbergsrevyn" target="_blank"><i class="fab fa-facebook" style="font-size: 40px; color: #4267B2;"></i> </a>
+                            <a class="nav-link text-dark" href="https://www.facebook.com/falkenbergsrevyn" target="_blank"><i class="fab fa-facebook" style="font-size: 40px; color: #4267B2;  align-content:center; text-align:center;"></i> </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="https://www.instagram.com/falkenbergsrevyn" target="_blank"><i class="fab fa-instagram" style="font-size: 40px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; color: transparent;"></i> </a>
+                            <a class="nav-link text-dark" href="https://www.instagram.com/falkenbergsrevyn" target="_blank"><i class="fab fa-instagram" style="font-size: 40px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); -webkit-background-clip: text; color: transparent;  align-content:center; text-align:center;"></i> </a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -73,14 +70,14 @@
                         {
                             <li class="nav-item">
                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post">
-                                    <button type="submit" class="btn btn-link text-dark nav-link" style="text-decoration:none;">Logga ut</button>
+                                    <button type="submit" class="btn btn-link text-dark nav-link" style="text-decoration:none; font-size:25px; border: solid 2px; border-radius:10px; align-content:center; text-align:center; background-color:lightgrey;">Logga ut</button>
                                 </form>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Logga in</a>
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login" style="text-decoration:none; font-size:25px; border: solid 2px; border-radius:10px; align-content:top; text-align:center; background-color:lightgrey;">Logga in</a>
                             </li>
                         }
                     </ul>
