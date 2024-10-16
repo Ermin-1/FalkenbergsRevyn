@@ -10,7 +10,13 @@ html, body {
     color: #333;
 }
 
-/* Specifika stilar för login-sidan */
+/* Navbar */
+.navbar {
+    background-color: #e285ea !important; /* Ljusare lila */
+    border-bottom: 1px solid #e285ea;
+}
+
+/* Login-sida */
 .login-page {
     display: flex;
     justify-content: center;
@@ -33,190 +39,6 @@ html, body {
         margin-bottom: 20px;
     }
 
-/* Form och knappar */
-.form-floating input {
-    background-color: #f3e5f5; /* Ljus lila */
-    border: 1px solid #ab47bc; /* Lila kant */
-}
-
-.form-floating label {
-    color: #6a1b9a; /* Lila färg på label */
-}
-body {
-    margin-bottom: 60px;
-    background-color: #343a40; /* Bootstrap dark gray */
-    color: #f8f9fa; /* Light text color for readability */
-    margin: 0;
-    padding: 0;
-
-.btn-primary {
-    background-color: #8e24aa;
-    border-color: #8e24aa;
-}
-
-    .btn-primary:hover {
-        background-color: #6a1b9a;
-        border-color: #6a1b9a;
-    }
-
-
-/* Footer-stilar */
-footer {
-    background-color: #f3e5f5; /* Ljus lila bakgrund för att matcha sidan */
-    border-top: 1px solid #ab47bc; /* Lila kant */
-    padding: 20px 0; /* Ger lite extra utrymme i fotern */
-    color: #6a1b9a; /* Mjuk lila text */
-    font-size: 14px;
-
-}
-
-    footer a {
-        color: #8e24aa; /* Färg på länken */
-        text-decoration: none; /* Tar bort standard understrykning */
-    }
-
-        footer a:hover {
-            color: #6a1b9a; /* Mörkare lila vid hover */
-            text-decoration: underline; /* Understrykning vid hover för bättre synlighet */
-        }
-
-    footer .container {
-        display: flex;
-        justify-content: center; /* Centrera texten horisontellt */
-        align-items: center; /* Justerar innehållet vertikalt i mitten */
-    }
-
-        footer .container p {
-            margin: 0; /* Tar bort marginal runt texten */
-        }
-
-
-body {
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
-}
-
-.container {
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    width: 200px;
-}
-
-.navigation {
-    display: flex;
-    gap: 10px;
-}
-
-.feedback-section {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.feedback-category {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 0 10px;
-    flex: 0 0 30%;
-}
-
-/*.category-btn {
-    border-bottom: 5px dotted gold;
-    border-top: 5px dotted gold;
-    padding: 5px 10px;
-    margin-bottom: 20px;
-    color: white;
-    font-weight: 550;
-    letter-spacing: 2px;
-}*/
-
-.modalbtn {
-    background-color: blue;
-    border: 10px;
-}
-
-.feedback-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.feedback-item {
-    background-color: #444;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-    .feedback-item input {
-        margin-top: 10px;
-        width: 100%;
-        padding: 5px;
-        border-radius: 5px;
-    }
-
-.btn {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-    .btn.small {
-        font-size: 12px;
-        padding: 5px 8px;
-    }
-
-/* Runda hörn på bilder */
-img {
-    border-radius: 10px; /* Rundar hörn på bilder */
-}/* Grundläggande layout */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ab47bc, #e1bee7); /* Ännu ljusare nyanser av lila */
-    background-size: cover;
-    background-attachment: fixed; /* Fäster bakgrunden för bättre effekt */
-    color: #333;
-}
-
-/* Specifika stilar för login-sidan */
-.login-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.login-box {
-    background-color: #ffffff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-}
-
-    .login-box h1 {
-        color: #6a1b9a;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-/* Form och knappar */
 .form-floating input {
     background-color: #f3e5f5; /* Ljus lila */
     border: 1px solid #ab47bc; /* Lila kant */
@@ -226,16 +48,44 @@ html, body {
     color: #6a1b9a; /* Lila färg på label */
 }
 
+/* Ljusrosa login-knapp */
 .btn-primary {
-    background-color: #8e24aa;
-    border-color: #8e24aa;
+    background-color: #f8bbd0 !important; /* Ljusrosa */
+    border-color: #f8bbd0 !important;
+    color: white !important; /* Vit text */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Lägg till övergång för mjuk hover-effekt */
 }
 
+    /* Mörkare rosa vid hover */
     .btn-primary:hover {
-        background-color: #6a1b9a;
-        border-color: #6a1b9a;
+        background-color: #f48fb1 !important; /* Mörkare rosa */
+        border-color: #f48fb1 !important;
     }
 
+
+
+
+/* Logga in/ut knappar */
+.logout-btn, .login-btn {
+    background-color: black !important; /* Svart bakgrund */
+    color: #DAA520 !important; /* Mörkare gul text */
+    padding: 10px 20px; /* Mer utrymme runt texten */
+    font-size: 20px; /* Justerad storlek */
+    border-radius: 8px; /* Rundade hörn */
+    border: 2px solid #DAA520; /* Mörkare gul kantfärg */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtil skugga */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .logout-btn:hover, .login-btn:hover {
+        background-color: #333333 !important; /* Ljusare svart på hover */
+        color: #DAA520 !important; /* Se till att texten fortfarande är mörkgul vid hover */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Mer framträdande skugga på hover */
+        text-decoration: none;
+    }
 
 /* Footer-stilar */
 footer {
@@ -266,16 +116,14 @@ footer {
             margin: 0; /* Tar bort marginal runt texten */
         }
 
-
+/* Övrig styling */
 body {
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
 }
 
-.container {
-}
-
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -291,6 +139,7 @@ body {
     gap: 10px;
 }
 
+/* Feedback-sektion */
 .feedback-section {
     display: flex;
     justify-content: space-between;
@@ -303,20 +152,6 @@ body {
     border-radius: 10px;
     margin: 0 10px;
     flex: 0 0 30%;
-}
-
-/*.category-btn {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}*/
-
-.modalbtn {
-    background-color: blue;
-    border: 10px;
 }
 
 .feedback-list {
@@ -338,6 +173,7 @@ body {
         border-radius: 5px;
     }
 
+/* Små knappar */
 .btn {
     background-color: white;
     color: black;
@@ -356,4 +192,13 @@ body {
 /* Runda hörn på bilder */
 img {
     border-radius: 10px; /* Rundar hörn på bilder */
+}
+
+/* Ändra färgen på "Remember me"-texten och checkboxen */
+.checkbox label {
+    color: #8e24aa; /* Lila text */
+}
+
+.checkbox input[type="checkbox"] {
+    accent-color: #8e24aa; /* Lila checkbox */
 }
