@@ -21,7 +21,7 @@ namespace FalkenbergsRevyn.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Index(string filter, string category, int? num)
         {
-            int displayCount = num ?? 5; // Default number of comments to display
+            int displayCount = num ?? 500; // Default number of comments to display
             var query = _context.Comments.Include(c => c.Responses).AsQueryable();
 
             // Check if the category is provided
@@ -42,10 +42,10 @@ namespace FalkenbergsRevyn.Controllers
                 case "oldest":
                     query = query.OrderBy(c => c.DatePosted);
                     break;
-                case "all": // Make sure to handle the case for "all" to show all comments
+                case "all":
                     break;
                 default:
-                    // No filtering needed, show all comments
+                    query = query.Where(c => !c.IsArchived);
                     break;
             }
 
@@ -54,9 +54,9 @@ namespace FalkenbergsRevyn.Controllers
 
             var feedbackViewModel = new FeedbackViewModel
             {
-                PositiveComments = comments.Where(c => c.Category == "Positiva").ToList(),
-                CriticalComments = comments.Where(c => c.Category == "Kritik").ToList(),
-                Questions = comments.Where(c => c.Category == "Frågor").ToList(),
+                PositiveComments = comments.Where(c => c.Category == "Positiva" || c.Category == "Positiv").ToList(),
+                CriticalComments = comments.Where(c => c.Category == "Kritik" || c.Category == "Negativ").ToList(),
+                Questions = comments.Where(c => c.Category == "Frågor" || c.Category == "Fråga").ToList(),
                 CurrentFilter = filter,
                 CurrentCategory = category,
                 CommentNumber = displayCount
