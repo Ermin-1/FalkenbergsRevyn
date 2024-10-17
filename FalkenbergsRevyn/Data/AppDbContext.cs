@@ -118,7 +118,7 @@ namespace FalkenbergsRevyn.Data
             {
                 if (content.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    return "Positiv";
+                    return "Positiva";
                 }
             }
 
