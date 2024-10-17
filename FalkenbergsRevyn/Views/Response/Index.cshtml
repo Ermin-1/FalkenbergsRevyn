@@ -9,10 +9,6 @@
     <div class="container mt-5 flex-grow-1 pb-5">
         <h2 class="text-center text-light">Responses</h2>
 
-        <div class="d-flex justify-content-end mb-3">
-            <a class="btn btn-primary" asp-action="Create">Create New Response</a>
-        </div>
-
         <!-- Filter buttons -->
         <div class="btn-group mb-3" role="group">
             <a href="@Url.Action("Index", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
