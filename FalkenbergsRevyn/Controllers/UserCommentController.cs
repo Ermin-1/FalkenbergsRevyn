@@ -45,8 +45,10 @@ namespace FalkenbergsRevyn.Controllers
 
                 _context.Comments.Add(newComment);
                 await _context.SaveChangesAsync();
+                _openAIChatBot.ProcessComments(newComment);
+                await _context.SaveChangesAsync();
 
-                if (newComment.Category == "Positiv")
+                if (newComment.Category == "Positiva")
                 {
                     await _openAIChatBot.ProcessComments(newComment);
                 }
