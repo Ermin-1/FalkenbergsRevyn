@@ -77,9 +77,6 @@ namespace FalkenbergsRevyn
                 pattern: "Comment/{action}/{id?}",
                 defaults: new { controller = "Comment" });
 
-            // Ensure Razor Pages are mapped
-            app.MapRazorPages();
-
             app.Run();
         }
     }
