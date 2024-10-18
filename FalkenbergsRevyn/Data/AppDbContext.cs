@@ -89,7 +89,7 @@ namespace FalkenbergsRevyn.Data
     {
         public static string CategorizeComment(string content)
         {
-            var negativeKeywords = new List<string> { "tyvärr", "inte bra", "ofärdiga", "trång", "för stark", "för högt" };
+            var negativeKeywords = new List<string> { "tyvärr", "inte bra", "ofärdiga", "trång", "för stark", "för högt", "dålig", "dåligt", "dåliga" };
             var questionKeywords = new List<string> { "är ni säkra", "kommer ni att", "kan ni", "ska ni", "varför" };
             var positiveKeywords = new List<string> {"fantastisk", "bra", "grym", "älskade", "trevlig", "lyckad", "jättebra", "Lycka", "lyckatill", "bäst", "❤️", "🤩", "skratt", "skrattar", "gott", "guld", "längtar",
             "guld kant", "mycket skratt", "längtar redan", "ha det gott", "världssuccé", "härligt gäng", "bokad", "premiären", "hjärtligt grattis", "lycka till", "bäst", "kram", "grattis","bokat","😁", "🌝", "kul",
@@ -126,7 +126,7 @@ namespace FalkenbergsRevyn.Data
                 }
             }
 
-            return "Övrigt";
+            return "Nefativ";
         }
     }
 }
