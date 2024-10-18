@@ -40,6 +40,8 @@ else
                     @foreach (var comment in Model.PositiveComments)
                     {
                         <div class="feedback-item">
+                            <p><strong>Tillhör inlägg:</strong> @(comment.Post != null ? comment.Post.Title : "Inlägget saknas")</p>
+                            <!-- Lägg till titel på inlägget -->
                             <p class="ms-2">@comment.Content</p>
                             <p class="genererat">@comment.Responses?.FirstOrDefault()?.ResponseContent</p>
                             <button type="button" class="btn-small ms-2" data-bs-toggle="modal" data-bs-target="#hideModal-@comment.CommentId">Dölj från listan</button>
@@ -58,6 +60,7 @@ else
                     @foreach (var comment in Model.CriticalComments)
                     {
                         <div class="feedback-item">
+                            <p><strong>Tillhör inlägg:</strong> @(comment.Post != null ? comment.Post.Title : "Inlägget saknas")</p>
                             <p>@comment.Content</p>
                             <p class="answer @(string.IsNullOrEmpty(comment.Responses?.FirstOrDefault()?.ResponseContent) ? "bg-pink" : "bg-white")">
                                 @(string.IsNullOrEmpty(comment.Responses?.FirstOrDefault()?.ResponseContent) ? "Ej svarat" : comment.Responses?.FirstOrDefault()?.ResponseContent)
@@ -83,6 +86,7 @@ else
                     @foreach (var comment in Model.Questions)
                     {
                         <div class="feedback-item">
+                            <p><strong>Tillhör inlägg:</strong> @(comment.Post != null ? comment.Post.Title : "Inlägget saknas")</p>
                             <p>@comment.Content</p>
                             <p class="answer @(string.IsNullOrEmpty(comment.Responses?.FirstOrDefault()?.ResponseContent) ? "bg-pink" : "bg-white")">
                                 @(string.IsNullOrEmpty(comment.Responses?.FirstOrDefault()?.ResponseContent) ? "Ej svarat" : comment.Responses?.FirstOrDefault()?.ResponseContent)

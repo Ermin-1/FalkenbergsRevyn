@@ -22,7 +22,12 @@ namespace FalkenbergsRevyn.Controllers
         public async Task<IActionResult> Index(string filter, string category, int? num)
         {
             int displayCount = num ?? 500; // Default number of comments to display
-            var query = _context.Comments.Include(c => c.Responses).AsQueryable();
+
+            // Lägg till Include för att hämta relaterade Post-objekt
+            var query = _context.Comments
+                .Include(c => c.Post) // Detta inkluderar inlägget varje kommentar tillhör
+                .Include(c => c.Responses)
+                .AsQueryable();
 
             // Check if the category is provided
             if (!string.IsNullOrEmpty(category))
@@ -54,8 +59,8 @@ namespace FalkenbergsRevyn.Controllers
 
             var feedbackViewModel = new FeedbackViewModel
             {
-                PositiveComments = comments.Where(c => c.Category == "Positiva" || c.Category == "Positiv").ToList(),
-                CriticalComments = comments.Where(c => c.Category == "Kritik" || c.Category == "Negativ").ToList(),
+                PositiveComments = comments.Where(c => c.Category == "Positiva" ||  c.Category == "Positiv").ToList(),
+                CriticalComments = comments.Where(c => c.Category == "Kritik" ||  c.Category == "Negativ").ToList(),
                 Questions = comments.Where(c => c.Category == "Frågor" || c.Category == "Fråga").ToList(),
                 CurrentFilter = filter,
                 CurrentCategory = category,
