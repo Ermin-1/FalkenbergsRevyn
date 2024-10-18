@@ -59,6 +59,7 @@ namespace FalkenbergsRevyn
             app.UseRouting();
 
             app.UseAuthentication();
+            app.MapRazorPages();
             app.UseAuthorization();
 
 
