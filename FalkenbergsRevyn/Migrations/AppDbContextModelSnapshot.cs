@@ -54,15 +54,15 @@ namespace FalkenbergsRevyn.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
 
                     b.HasData(
                         new
                         {
                             CommentId = 1,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Fantastisk show! Helt klart den bästa jag sett.",
-                            DatePosted = new DateTime(2024, 9, 10, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3429),
+                            DatePosted = new DateTime(2024, 9, 15, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9653),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 1
@@ -70,9 +70,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 2,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Musiken var så bra, vilken upplevelse!",
-                            DatePosted = new DateTime(2024, 9, 10, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3432),
+                            DatePosted = new DateTime(2024, 9, 16, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9671),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 1
@@ -80,9 +80,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 3,
-                            Category = "Kritik",
+                            Category = "Negativ",
                             Content = "Tyvärr tyckte jag inte om skämten i showen.",
-                            DatePosted = new DateTime(2024, 9, 11, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3435),
+                            DatePosted = new DateTime(2024, 9, 17, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9726),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 1
@@ -90,9 +90,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 4,
-                            Category = "Kritik",
+                            Category = "Negativ",
                             Content = "Belysningen var lite för stark under vissa delar.",
-                            DatePosted = new DateTime(2024, 9, 11, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3437),
+                            DatePosted = new DateTime(2024, 9, 18, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9739),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 1
@@ -100,9 +100,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 5,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Fantastiskt avslut på kvällen, jag skrattade så mycket!",
-                            DatePosted = new DateTime(2024, 9, 12, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3439),
+                            DatePosted = new DateTime(2024, 9, 19, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9753),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 1
@@ -110,9 +110,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 6,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Ser verkligen fram emot nästa års show!",
-                            DatePosted = new DateTime(2024, 9, 15, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3441),
+                            DatePosted = new DateTime(2024, 9, 20, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9823),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 2
@@ -120,9 +120,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 7,
-                            Category = "Kritik",
+                            Category = "Övrigt",
                             Content = "Jag hoppas att ni har bättre skämt nästa gång.",
-                            DatePosted = new DateTime(2024, 9, 15, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3443),
+                            DatePosted = new DateTime(2024, 9, 21, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9885),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 2
@@ -130,9 +130,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 8,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Bra arrangemang, det märks att ni förbereder er i god tid.",
-                            DatePosted = new DateTime(2024, 9, 16, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3445),
+                            DatePosted = new DateTime(2024, 9, 22, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9899),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 2
@@ -140,9 +140,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 9,
-                            Category = "Kritik",
+                            Category = "Övrigt",
                             Content = "Ljudet var inte helt perfekt under vissa repetitioner.",
-                            DatePosted = new DateTime(2024, 9, 16, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3447),
+                            DatePosted = new DateTime(2024, 9, 23, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9994),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 2
@@ -150,9 +150,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 10,
-                            Category = "Positiva",
+                            Category = "Övrigt",
                             Content = "Ska definitivt köpa biljetter så snart de släpps!",
-                            DatePosted = new DateTime(2024, 9, 17, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3449),
+                            DatePosted = new DateTime(2024, 9, 24, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(57),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 2
@@ -160,9 +160,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 11,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Mingelkvällen var så trevlig, bra jobbat!",
-                            DatePosted = new DateTime(2024, 9, 20, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3452),
+                            DatePosted = new DateTime(2024, 9, 25, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(70),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 3
@@ -170,9 +170,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 12,
-                            Category = "Kritik",
+                            Category = "Negativ",
                             Content = "Lokalen var lite trång, men annars var det bra.",
-                            DatePosted = new DateTime(2024, 9, 20, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3455),
+                            DatePosted = new DateTime(2024, 9, 26, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(128),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 3
@@ -180,9 +180,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 13,
-                            Category = "Positiva",
+                            Category = "Övrigt",
                             Content = "Mingelmat och dryck var av högsta kvalitet!",
-                            DatePosted = new DateTime(2024, 9, 21, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3457),
+                            DatePosted = new DateTime(2024, 9, 27, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(187),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 3
@@ -190,9 +190,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 14,
-                            Category = "Kritik",
+                            Category = "Positiv",
                             Content = "Skulle vara trevligt med fler sittplatser under minglet.",
-                            DatePosted = new DateTime(2024, 9, 21, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3459),
+                            DatePosted = new DateTime(2024, 9, 28, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(204),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 3
@@ -200,9 +200,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 15,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Det var fantastiskt att träffa skådespelarna!",
-                            DatePosted = new DateTime(2024, 9, 22, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3461),
+                            DatePosted = new DateTime(2024, 9, 29, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(259),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 3
@@ -210,9 +210,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 16,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Kostymerna ser otroligt vackra ut!",
-                            DatePosted = new DateTime(2024, 9, 22, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3463),
+                            DatePosted = new DateTime(2024, 9, 30, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(304),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 4
@@ -220,9 +220,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 17,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Färgerna på kostymerna var fantastiska, snyggt jobbat!",
-                            DatePosted = new DateTime(2024, 9, 23, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3465),
+                            DatePosted = new DateTime(2024, 10, 1, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(317),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 4
@@ -230,9 +230,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 18,
-                            Category = "Kritik",
+                            Category = "Negativ",
                             Content = "Några kostymer såg lite ofärdiga ut.",
-                            DatePosted = new DateTime(2024, 9, 23, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3466),
+                            DatePosted = new DateTime(2024, 10, 2, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(348),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 4
@@ -240,9 +240,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 19,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Ser fram emot att se dem live på scenen!",
-                            DatePosted = new DateTime(2024, 9, 24, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3468),
+                            DatePosted = new DateTime(2024, 10, 3, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(393),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 4
@@ -250,9 +250,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 20,
-                            Category = "Kritik",
+                            Category = "Fråga",
                             Content = "Är ni säkra på att alla kostymer är redo för premiären?",
-                            DatePosted = new DateTime(2024, 9, 24, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3470),
+                            DatePosted = new DateTime(2024, 10, 4, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(403),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 4
@@ -260,9 +260,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 21,
-                            Category = "Positiva",
+                            Category = "Övrigt",
                             Content = "Skådespelarna var lysande! Stort tack!",
-                            DatePosted = new DateTime(2024, 9, 25, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3472),
+                            DatePosted = new DateTime(2024, 10, 5, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(456),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 5
@@ -270,9 +270,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 22,
-                            Category = "Kritik",
+                            Category = "Övrigt",
                             Content = "Några av scenerna kändes lite utdragna.",
-                            DatePosted = new DateTime(2024, 9, 25, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3474),
+                            DatePosted = new DateTime(2024, 10, 6, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(559),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 5
@@ -280,9 +280,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 23,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Älskade den nya skådespelaren, grym energi!",
-                            DatePosted = new DateTime(2024, 9, 26, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3476),
+                            DatePosted = new DateTime(2024, 10, 7, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(574),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 5
@@ -290,9 +290,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 24,
-                            Category = "Kritik",
+                            Category = "Övrigt",
                             Content = "Hoppas att ni förkortar vissa scener till nästa år.",
-                            DatePosted = new DateTime(2024, 9, 26, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3478),
+                            DatePosted = new DateTime(2024, 10, 8, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(635),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 5
@@ -300,9 +300,9 @@ namespace FalkenbergsRevyn.Migrations
                         new
                         {
                             CommentId = 25,
-                            Category = "Positiva",
+                            Category = "Positiv",
                             Content = "Perfekt dynamik mellan skådespelarna, fantastisk kemi!",
-                            DatePosted = new DateTime(2024, 9, 27, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3480),
+                            DatePosted = new DateTime(2024, 10, 9, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(670),
                             IsAnswered = false,
                             IsArchived = false,
                             PostId = 5
@@ -326,8 +326,8 @@ namespace FalkenbergsRevyn.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("PostId");
 
@@ -338,105 +338,105 @@ namespace FalkenbergsRevyn.Migrations
                         {
                             PostId = 1,
                             Content = "En beskrivning av den senaste showen.",
-                            DateCreated = new DateTime(2024, 9, 9, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3239),
+                            DateCreated = new DateTime(2024, 9, 14, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9419),
                             Title = "Showen 2024 - Succé!"
                         },
                         new
                         {
                             PostId = 2,
                             Content = "Förberedelserna är i full gång inför nästa års show.",
-                            DateCreated = new DateTime(2024, 9, 14, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3285),
+                            DateCreated = new DateTime(2024, 9, 19, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9462),
                             Title = "Förberedelser inför Showen 2025"
                         },
                         new
                         {
                             PostId = 3,
                             Content = "En fantastisk kväll med mingel och underhållning.",
-                            DateCreated = new DateTime(2024, 9, 19, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3288),
+                            DateCreated = new DateTime(2024, 9, 24, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9465),
                             Title = "Mingelkväll på Falkenbergsrevyn"
                         },
                         new
                         {
                             PostId = 4,
                             Content = "En inblick i design och tillverkning av kostymerna.",
-                            DateCreated = new DateTime(2024, 9, 21, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3290),
+                            DateCreated = new DateTime(2024, 9, 26, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9466),
                             Title = "Kostymer för showen 2024"
                         },
                         new
                         {
                             PostId = 5,
                             Content = "Presentation av skådespelarna i årets show.",
-                            DateCreated = new DateTime(2024, 9, 24, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3292),
+                            DateCreated = new DateTime(2024, 9, 29, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9468),
                             Title = "Skådespelarna i årets show"
                         },
                         new
                         {
                             PostId = 6,
                             Content = "En exklusiv titt bakom kulisserna under scenbygget.",
-                            DateCreated = new DateTime(2024, 9, 29, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3294),
+                            DateCreated = new DateTime(2024, 10, 4, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9470),
                             Title = "Bakom kulisserna - Scenbygge"
                         },
                         new
                         {
                             PostId = 7,
                             Content = "Biljetter för nästa års show släpps nu.",
-                            DateCreated = new DateTime(2024, 10, 4, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3295),
+                            DateCreated = new DateTime(2024, 10, 9, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9471),
                             Title = "Biljettsläpp för Showen 2025"
                         },
                         new
                         {
                             PostId = 8,
                             Content = "En presentation av musikerna och låtarna i showen.",
-                            DateCreated = new DateTime(2024, 10, 7, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3297),
+                            DateCreated = new DateTime(2024, 10, 12, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9473),
                             Title = "Musiken i årets revy"
                         },
                         new
                         {
                             PostId = 9,
                             Content = "Hur skådespelarna håller humorn uppe under repetitionerna.",
-                            DateCreated = new DateTime(2024, 10, 8, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3299),
+                            DateCreated = new DateTime(2024, 10, 13, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9475),
                             Title = "Humor bakom kulisserna"
                         },
                         new
                         {
                             PostId = 10,
                             Content = "Recensioner och publikens åsikter om årets revy.",
-                            DateCreated = new DateTime(2024, 10, 9, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3301),
+                            DateCreated = new DateTime(2024, 10, 14, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9476),
                             Title = "Skrattfest på Falkenbergsrevyn"
                         },
                         new
                         {
                             PostId = 11,
                             Content = "En introduktion av en ny skådespelare i revyn.",
-                            DateCreated = new DateTime(2024, 10, 2, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3303),
+                            DateCreated = new DateTime(2024, 10, 7, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9478),
                             Title = "Ny medverkande i showen"
                         },
                         new
                         {
                             PostId = 12,
                             Content = "Information om årets huvudsponsorer.",
-                            DateCreated = new DateTime(2024, 9, 27, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3305),
+                            DateCreated = new DateTime(2024, 10, 2, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9480),
                             Title = "Sponsorer för årets show"
                         },
                         new
                         {
                             PostId = 13,
                             Content = "En guide till vad som serveras under revyn.",
-                            DateCreated = new DateTime(2024, 9, 25, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3306),
+                            DateCreated = new DateTime(2024, 9, 30, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9481),
                             Title = "Mat och dryck på revykvällarna"
                         },
                         new
                         {
                             PostId = 14,
                             Content = "En sammanfattning av publikens favoritmoment.",
-                            DateCreated = new DateTime(2024, 10, 6, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3308),
+                            DateCreated = new DateTime(2024, 10, 11, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9483),
                             Title = "Showens höjdpunkter"
                         },
                         new
                         {
                             PostId = 15,
                             Content = "Beskrivning av det storslagna avslutningsnumret i revyn.",
-                            DateCreated = new DateTime(2024, 10, 8, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3310),
+                            DateCreated = new DateTime(2024, 10, 13, 11, 6, 3, 253, DateTimeKind.Local).AddTicks(9485),
                             Title = "Avslutningsnumret"
                         });
                 });
@@ -463,70 +463,70 @@ namespace FalkenbergsRevyn.Migrations
 
                     b.HasIndex("CommentId");
 
-                    b.ToTable("Responses");
+                    b.ToTable("Responses", (string)null);
 
                     b.HasData(
                         new
                         {
                             ResponseId = 1,
                             CommentId = 3,
-                            DateResponded = new DateTime(2024, 9, 12, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3549),
+                            DateResponded = new DateTime(2024, 9, 17, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(705),
                             ResponseContent = "Tack för din feedback! Vi ser över skämten inför nästa show."
                         },
                         new
                         {
                             ResponseId = 2,
                             CommentId = 4,
-                            DateResponded = new DateTime(2024, 9, 12, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3551),
+                            DateResponded = new DateTime(2024, 9, 17, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(708),
                             ResponseContent = "Tack för att du påpekade det! Vi kommer att justera belysningen."
                         },
                         new
                         {
                             ResponseId = 3,
                             CommentId = 5,
-                            DateResponded = new DateTime(2024, 9, 13, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3553),
+                            DateResponded = new DateTime(2024, 9, 18, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(710),
                             ResponseContent = "Vi är glada att du gillade showen! Tack för ditt fina omdöme!"
                         },
                         new
                         {
                             ResponseId = 4,
                             CommentId = 9,
-                            DateResponded = new DateTime(2024, 9, 16, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3555),
+                            DateResponded = new DateTime(2024, 9, 21, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(712),
                             ResponseContent = "Nästa år satsar vi på ännu bättre ljud!"
                         },
                         new
                         {
                             ResponseId = 5,
                             CommentId = 10,
-                            DateResponded = new DateTime(2024, 9, 17, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3557),
+                            DateResponded = new DateTime(2024, 9, 22, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(713),
                             ResponseContent = "Vi ser fram emot att se dig nästa år! Biljetterna släpps snart."
                         },
                         new
                         {
                             ResponseId = 6,
                             CommentId = 11,
-                            DateResponded = new DateTime(2024, 9, 21, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3559),
+                            DateResponded = new DateTime(2024, 9, 26, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(715),
                             ResponseContent = "Kul att du trivdes på mingelkvällen! Tack för din feedback."
                         },
                         new
                         {
                             ResponseId = 7,
                             CommentId = 19,
-                            DateResponded = new DateTime(2024, 9, 24, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3560),
+                            DateResponded = new DateTime(2024, 9, 29, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(717),
                             ResponseContent = "Vi ser fram emot att du ser kostymerna live på scenen!"
                         },
                         new
                         {
                             ResponseId = 8,
                             CommentId = 22,
-                            DateResponded = new DateTime(2024, 9, 27, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3562),
+                            DateResponded = new DateTime(2024, 10, 2, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(718),
                             ResponseContent = "Vi håller koll på tidsramarna och ser över de utdragna scenerna."
                         },
                         new
                         {
                             ResponseId = 9,
                             CommentId = 23,
-                            DateResponded = new DateTime(2024, 9, 27, 11, 1, 7, 166, DateTimeKind.Local).AddTicks(3564),
+                            DateResponded = new DateTime(2024, 10, 2, 11, 6, 3, 254, DateTimeKind.Local).AddTicks(720),
                             ResponseContent = "Tack för dina fina ord om våra skådespelare! Vi uppskattar det."
                         });
                 });
@@ -745,7 +745,7 @@ namespace FalkenbergsRevyn.Migrations
             modelBuilder.Entity("FalkenbergsRevyn.Models.Response", b =>
                 {
                     b.HasOne("FalkenbergsRevyn.Models.Comment", "Comment")
-                        .WithMany()
+                        .WithMany("Responses")
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -802,6 +802,11 @@ namespace FalkenbergsRevyn.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FalkenbergsRevyn.Models.Comment", b =>
+                {
+                    b.Navigation("Responses");
                 });
 
             modelBuilder.Entity("FalkenbergsRevyn.Models.Post", b =>

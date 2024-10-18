@@ -91,7 +91,11 @@ namespace FalkenbergsRevyn.Data
         {
             var negativeKeywords = new List<string> { "tyvärr", "inte bra", "ofärdiga", "trång", "för stark", "för högt" };
             var questionKeywords = new List<string> { "är ni säkra", "kommer ni att", "kan ni", "ska ni", "varför" };
-            var positiveKeywords = new List<string> { "fantastisk", "bra", "grym", "älskade", "trevlig", "lyckad", "jättebra", "Lycka", "lyckatill", "bäst", "❤️", "🤩", "skratt", "skrattar", "gott", "guld", "längtar" };
+            var positiveKeywords = new List<string> {"fantastisk", "bra", "grym", "älskade", "trevlig", "lyckad", "jättebra", "Lycka", "lyckatill", "bäst", "❤️", "🤩", "skratt", "skrattar", "gott", "guld", "längtar",
+            "guld kant", "mycket skratt", "längtar redan", "ha det gott", "världssuccé", "härligt gäng", "bokad", "premiären", "hjärtligt grattis", "lycka till", "bäst", "kram", "grattis","bokat","😁", "🌝", "kul",
+                "😎", "😃", "🤗", "😉", "😂", "👍", "💫", "💎", "✨", "💜", "💞", "🙏", "🎶", "🌅", "💯", "☘️", "🌤", "🎵", "🎸", "🎤", "🎹", "🌼", "💃🏾", "👏", "fram emot","vi har bokat", "vi kommer", "fram mot",
+                "🥰","fixat", "fram i mot", "framemot", "🎉", "💖", "framemot", "roligt", "rolig", "roliga", "❤", "😊", "beundransvärda", "kör hårt", "flitiga","rekommendera","yay", "proffsig", "länktar", "ska vi bara se", "🌹", "hurra", "fröjd", "länktar",
+            };
 
             if (content.Contains("?"))
             {
