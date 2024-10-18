@@ -69,7 +69,7 @@ namespace FalkenbergsRevyn.Controllers
                 comment.DatePosted = DateTime.Now;
                 comment.IsAnswered = false;
                 comment.IsArchived = false;
-                
+
                 comment.PostId = 1; // Här kan du implementera hur det kopplas till ett specifikt inlägg
 
                 _context.Add(comment);

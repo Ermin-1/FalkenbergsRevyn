@@ -59,6 +59,7 @@ namespace FalkenbergsRevyn
             app.UseRouting();
 
             app.UseAuthentication();
+            app.MapRazorPages();
             app.UseAuthorization();
 
 
@@ -76,9 +77,6 @@ namespace FalkenbergsRevyn
                 name: "comment",
                 pattern: "Comment/{action}/{id?}",
                 defaults: new { controller = "Comment" });
-
-            // Ensure Razor Pages are mapped
-            app.MapRazorPages();
 
             app.Run();
         }

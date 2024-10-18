@@ -9,10 +9,6 @@
     <div class="container mt-5 flex-grow-1 pb-5">
         <h2 class="text-center text-light">Responses</h2>
 
-        <div class="d-flex justify-content-end mb-3">
-            <a class="btn btn-primary" asp-action="Create">Create New Response</a>
-        </div>
-
         <!-- Filter buttons -->
         <div class="btn-group mb-3" role="group">
             <a href="@Url.Action("Index", new { filter = "latest" })" class="btn btn-secondary">Latest Comments</a>
@@ -36,7 +32,7 @@
                     <tr>
                         <td>@item.Comment.Content</td>
                         <td>@item.ResponseContent</td>
-                        <td>@item.DateResponded</td>
+                        <td>@item.DateResponded.ToString("dd-MMM-yyyy HH:mm")</td>
                         <td>
                             <a class="btn btn-sm btn-warning" asp-action="Details" asp-route-id="@item.ResponseId" title="Details"><i class="fa-solid fa-magnifying-glass-plus"></i></a>
                             <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.ResponseId" title="Edit"><i class="fa-solid fa-edit"></i></a>

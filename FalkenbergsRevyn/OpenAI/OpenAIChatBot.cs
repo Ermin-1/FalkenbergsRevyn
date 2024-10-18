@@ -31,7 +31,7 @@ namespace FalkenbergsRevyn.OpenAI
                 {
                     var textToBeAnswered = comment.Content;
 
-                   
+
                     // Lägger till specifika instruktioner för ett ödmjukt och välkomnande svar
                     var prompt = $"Kommentaren är: \"{textToBeAnswered}\". Ge ett vänligt, ödmjukt och välkomnande svar som uttrycker uppskattning, utan att lägga till onödigt innehåll. Håll svaret kort och artigt.";
 
@@ -53,9 +53,10 @@ namespace FalkenbergsRevyn.OpenAI
                         _context.Responses.Add(new Response
                         {
                             ResponseContent = answer,
-                            DateResponded = DateTime.Now,
+                            DateResponded = DateTime.ParseExact(DateTime.Now.ToString("dd-MMM-yyyy HH:mm"), "dd-MMM-yyyy HH:mm", null),
                             CommentId = comment.CommentId
                         });
+
 
                         await _context.SaveChangesAsync();
                     }
